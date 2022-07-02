@@ -1,0 +1,29 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&display=swap');
+@import '~antd/dist/antd.less';
+:root {
+    --primary-color: rgb(252, 213, 53);
+    --text-blur: #707A8A;
+    --text-primary: #1E2329;
+    --hover-backGround-color: rgb(245, 245, 245);
+    --text-primary-dark: rgb(234, 236, 239);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering:optimizeSpeed;
+}
+
+.ant-menu-light .ant-menu-item:hover {
+    color: var(--primary-color);
+}
