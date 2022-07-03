@@ -1,5 +1,11 @@
+import Overview from './Overview';
+
 function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Overview />
+    </div>
+  );
 }
 
 export default Home;

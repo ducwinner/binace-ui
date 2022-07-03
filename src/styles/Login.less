@@ -1,0 +1,91 @@
+@import "Globalstyles";
+
+.loginInner {
+    width: 100%;
+    margin-top: 10vh;
+    height: 100%;
+}
+
+.loginInnerHeader {
+    font-size: 3.2rem;
+    font-weight: 600;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .typeLogin {
+        padding: 20px 0 0 0;
+        display: flex;
+        div {
+            padding: 5px 20px ;
+            font-size: 1.8rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    }
+
+    .content-botton {
+        font-size: 1.4rem;
+        color: rgb(189, 154, 15);
+        font-weight: 600;
+    }
+
+    .active {
+        background-color: var(--hover-backGround-color);
+    }
+}
+
+
+.formForm {
+    padding: 20px 0;
+
+    .ant-form-item-label {
+        margin-right: 15px;
+        display: flex;
+        max-width: 35%;
+        label {
+            font-size: 1.6rem;
+        }
+    }
+
+    .ant-form-item-control {
+        max-width: 100%;
+    }
+
+    .ant-form-item-control-input-content {
+        display: flex;
+    }
+
+    .ant-select.ant-select-in-form-item {
+        width: 30%;
+    }
+}
+
+.loginInner .qrCode {
+    margin-top: 50px;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .imgQRcode {
+        padding: 5px;
+    }
+
+
+    .QR_content {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 20px 0;
+    }
+
+    .QR_content2 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+}
+
