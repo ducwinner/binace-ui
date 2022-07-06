@@ -18,7 +18,7 @@ interface Router {
 
 const publicRouter: Router[] = [
     {path: "/", component: Home},
-    {path: "/listcoin", component: ListCoin},
+    {path: "/market", component: ListCoin},
     {path: "/profile", component: Profile},
     {path: "/upLoad", component: UpLoad, layout: HeaderOnly},
     {path: "/noLayout", component: NoLayout, layout: null},

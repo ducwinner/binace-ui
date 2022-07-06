@@ -135,7 +135,7 @@ function Header() {
       ],
     },
     {
-      label: 'Thị trường',
+      label: <Link to="./market">Thị trường</Link>,
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
     },

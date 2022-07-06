@@ -2,7 +2,7 @@ import { Col, Row } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/Login.less';
+import '../../styles//Login.less';
 
 function Register() {
   const [typeLogin, setTypeLogin] = useState<boolean>(true);

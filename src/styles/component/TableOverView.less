@@ -1,0 +1,40 @@
+.TableOverView ul {
+    padding: 10px;
+    border-radius: 5px;
+    list-style: none;
+    &:hover {
+        background-color: rgb(255, 255, 255);
+    }
+
+    li {
+        padding: 5px 5px;
+    }
+
+    .coinDescribe {
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+        color: var(--text-blur);
+        font-weight: 500;
+    }
+
+    .coinRow {
+        font-size: 1.5rem;
+        cursor: pointer;
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            transform: translateY(-2px);
+            width: 20px;
+            width: 20px;
+        }
+        
+    }
+
+    li:not(.coinDescribe) {
+        &:hover {
+            background-color: #fafafa;
+        }
+    }
+}
