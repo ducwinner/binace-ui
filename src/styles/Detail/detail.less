@@ -1,0 +1,94 @@
+.coin-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coin-detail-inner {
+    width: 1200px;
+    max-width: 100%;
+    margin-left: 20px;
+    .coin-detail-header {
+        display: flex;
+        img {
+            width: 50px;
+            height: 50px;
+            transform: translateY(10px);
+        }
+        font-size: 4.5rem;
+        font-weight: 500;
+
+        div {
+            font-size: 2.4rem;
+            font-weight: 400;
+            transform: translateY(16px);
+        }
+    }
+}
+
+.coin-detail-left .price-header {
+    font-size: 2.8rem;
+    font-weight: 600;
+    .change  {
+        font-size: 2.6rem;
+    }
+}
+
+.coin-detail-right .buy-crypto  {
+    .header  {
+        font-size: 2.4rem;
+        font-weight: 600;
+    }
+
+    .calculate {
+        margin-top: 25px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 8px;
+
+        input {
+            padding-left: 15px;
+            height: 100%;
+            border: none;
+            outline: none;
+            font-size: 2rem;
+        }
+
+        img {
+            width: 25px;
+            margin: 0 10px;
+        }
+
+        .cover-img-symbol {
+            margin-right:  20px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center
+        }
+    }
+}
+
+.calculate-output {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.price-infomation {
+    margin: 40px 0;
+    .price-infomation-title {
+        font-size: 2rem;
+        font-weight: 500;
+    }
+
+    .price-infomation-content {
+        margin: 20px;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+}

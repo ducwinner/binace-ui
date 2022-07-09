@@ -1,4 +1,6 @@
 import '../../../styles/Header.less';
+import { setDarkTheme, setDefaultTheme } from '../../../Redux/themeSlice';
+
 import { Menu, MenuTheme, Switch } from 'antd';
 import {
   SwapOutlined,
@@ -14,17 +16,27 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { MenuProps } from 'antd';
 import { Select } from 'antd';
+import { useDispatch } from 'react-redux';
 const { Option } = Select;
 
 function Header() {
-  const [theme, setTheme] = useState<MenuTheme>('dark');
+  const [theme, setTheme] = useState<MenuTheme>('light');
   const [current, setCurrent] = useState('mail');
+
+  //Redux theme
+  const dispatch = useDispatch();
+
   const changeTheme = (value: boolean) => {
+    if (theme === 'light') {
+      dispatch(setDarkTheme());
+    } else {
+      dispatch(setDefaultTheme());
+    }
     setTheme(value ? 'dark' : 'light');
   };
 
+  //
   const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
     setCurrent(e.key);
   };
 
@@ -53,7 +65,11 @@ function Header() {
       label: 'Mua Crypto',
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
-      icon: <DollarOutlined style={{ color: 'rgb(252, 213, 53)', fontSize: '1.6rem', transform: 'translateY(1px)' }} />,
+      icon: (
+        <DollarOutlined
+          style={{ color: 'rgb(252, 213, 53)', fontSize: '1.6rem', transform: 'translateY(1px)' }}
+        />
+      ),
       children: [
         {
           key: uuidv4(),
@@ -70,7 +86,9 @@ function Header() {
                 onChange={onChange}
                 onSearch={onSearch}
                 filterOption={(input, option) =>
-                  (option!.children as unknown as string).toLowerCase().includes(input.toLowerCase())
+                  (option!.children as unknown as string)
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
                 }
               >
                 <Option value="USD">USD</Option>
@@ -135,7 +153,7 @@ function Header() {
       ],
     },
     {
-      label: <Link to="./market">Thị trường</Link>,
+      label: <Link to="/market">Thị trường</Link>,
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
     },
@@ -143,7 +161,11 @@ function Header() {
       label: 'Giao dịch',
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
-      icon: <SwapOutlined style={{ color: 'rgb(252, 213, 53)', fontSize: '1.6rem', transform: 'translateY(1px)' }} />,
+      icon: (
+        <SwapOutlined
+          style={{ color: 'rgb(252, 213, 53)', fontSize: '1.6rem', transform: 'translateY(1px)' }}
+        />
+      ),
       children: [
         {
           key: uuidv4(),
@@ -236,7 +258,7 @@ function Header() {
       key: uuidv4(),
     },
     {
-      label: 'Chi Tiết',
+      label: <Link to="/detail/bitcoin">Cryptocurrency Detail</Link>,
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
     },
@@ -257,7 +279,12 @@ function Header() {
     },
     {
       label: (
-        <Switch checked={theme === 'dark'} onChange={changeTheme} checkedChildren="Dark" unCheckedChildren="Light" />
+        <Switch
+          checked={theme === 'dark'}
+          onChange={changeTheme}
+          checkedChildren="Light"
+          unCheckedChildren="Dark"
+        />
       ),
       popupClassName: 'headerSubMenu',
       key: uuidv4(),

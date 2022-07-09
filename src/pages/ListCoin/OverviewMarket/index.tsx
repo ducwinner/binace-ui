@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd';
 import { memo } from 'react';
+import { useSelector } from 'react-redux';
 import TableOverView from '../../../components/TableOverView';
 import '../../../styles/ListCoin/OverviewMarket.less';
 
@@ -16,25 +17,26 @@ function OverviewMarket({
   CoinHightVolume,
   CoinNew,
 }: OverViewMarketInterFace) {
+  // Redux theme
+  const { backGroudSP, text } = useSelector((state: any) => state.theme.colors);
+  console.log(backGroudSP, text);
+  //
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        backgroundColor: '#fafafa',
-        width: '100%',
-        paddingBottom: '30px',
+        backgroundColor: backGroudSP,
       }}
+      className="coverOverViewMarket"
     >
       <div className="overViewMarket">
         <div className="header">
-          <div style={{ fontSize: '3rem', fontWeight: 600 }}>Markets</div>
+          <div style={{ fontSize: '3rem', fontWeight: 600, color: text }}>Markets</div>
           <div className="marketOverView">
             <img
               src="https://img.icons8.com/dusk/64/000000/doughnut-chart--v1.png"
               alt="percent-circle"
             />
-            <div>Market Overview</div>
+            <div style={{ color: text }}>Market Overview</div>
           </div>
         </div>
         <div className="wrapper">

@@ -1,16 +1,28 @@
 import '../../../styles/Footer.less';
 
 import { Col, Row } from 'antd';
+import { useSelector } from 'react-redux';
 // ...
 
 function Footer() {
+  const { backGroudPrimary, text, textBlurPrimary } = useSelector(
+    (state: any) => state.theme.colors
+  );
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: backGroudPrimary,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
+    >
       <div className="FooterInner">
         <div className="FooterInnerTop">
           <Row>
             <Col span={4} className="colFooter">
-              <div>About Us</div>
+              <div style={{ color: text }}>About Us</div>
               <div>Careers</div>
               <div>Business Contacts</div>
               <div>Community</div>
@@ -24,7 +36,7 @@ function Footer() {
               <div>Cookie Preferences</div>
             </Col>
             <Col span={4} className="colFooter">
-              <div>Products</div>
+              <div style={{ color: text }}>Products</div>
               <div>Exchange</div>
               <div>Academy</div>
               <div>Binance Live</div>
@@ -38,7 +50,7 @@ function Footer() {
               <div>Binance Pay</div>
             </Col>
             <Col span={4} className="colFooter">
-              <div>Service</div>
+              <div style={{ color: text }}>Service</div>
               <div>Downloads</div>
               <div>Desktop Application</div>
               <div>Buy Crypto</div>
@@ -52,7 +64,7 @@ function Footer() {
               <div>Binance Pay</div>
             </Col>
             <Col span={4} className="colFooter">
-              <div>Give Us Feedback</div>
+              <div style={{ color: text }}>Give Us Feedback</div>
               <div>Support Center</div>
               <div>Submit a request</div>
               <div>APIs</div>
@@ -62,7 +74,7 @@ function Footer() {
               <div>Law Enforcement Requests</div>
             </Col>
             <Col span={4} className="colFooter">
-              <div>Learn</div>
+              <div style={{ color: text }}>Learn</div>
               <div>Learn &dollar; Earn</div>
               <div>Browse Crypto Prices</div>
               <div>Buy BNB</div>
@@ -77,28 +89,46 @@ function Footer() {
               <div>Tradable Altcoins</div>
             </Col>
             <Col span={4} className="colFooter">
-              <div>Community</div>
+              <div style={{ color: text }}>Community</div>
               <Row>
                 <Col span={8}>
-                  <img src="https://img.icons8.com/color/48/000000/telegram-app--v1.png" alt="telegram" />
+                  <img
+                    src="https://img.icons8.com/color/48/000000/telegram-app--v1.png"
+                    alt="telegram"
+                  />
                 </Col>
                 <Col span={8}>
                   <img src="https://img.icons8.com/windows/32/000000/blog-logo.png" alt="tiktok" />
                 </Col>
                 <Col span={8}>
-                  <img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="facebook" />
+                  <img
+                    src="https://img.icons8.com/color/48/000000/facebook-new.png"
+                    alt="facebook"
+                  />
                 </Col>
                 <Col span={8}>
-                  <img src="https://img.icons8.com/fluency/48/000000/instagram-new.png" alt="instagram" />
+                  <img
+                    src="https://img.icons8.com/fluency/48/000000/instagram-new.png"
+                    alt="instagram"
+                  />
                 </Col>
                 <Col span={8}>
-                  <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="youtobe" />
+                  <img
+                    src="https://img.icons8.com/color/48/000000/youtube-play.png"
+                    alt="youtobe"
+                  />
                 </Col>
                 <Col span={8}>
-                  <img src="https://img.icons8.com/bubbles/50/000000/discord-logo.png" alt="discord" />
+                  <img
+                    src="https://img.icons8.com/bubbles/50/000000/discord-logo.png"
+                    alt="discord"
+                  />
                 </Col>
                 <Col span={8}>
-                  <img src="https://img.icons8.com/cute-clipart/64/000000/reddit.png" alt="reddit" />
+                  <img
+                    src="https://img.icons8.com/cute-clipart/64/000000/reddit.png"
+                    alt="reddit"
+                  />
                 </Col>
               </Row>
             </Col>

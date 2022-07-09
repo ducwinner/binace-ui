@@ -111,7 +111,9 @@ function Register() {
                               if (!value || getFieldValue('password') === value) {
                                 return Promise.resolve();
                               }
-                              return Promise.reject('The two passwords that you entered dose not match');
+                              return Promise.reject(
+                                'The two passwords that you entered dose not match'
+                              );
                             },
                           }),
                         ]}
@@ -148,8 +150,8 @@ function Register() {
                     </Form>
                   </div>
                   <div className="content-botton">Forgot PassWord ?</div>
-                  <Link to="/" className="content-botton">
-                    Register Now?
+                  <Link to="/login" className="content-botton">
+                    Login Now?
                   </Link>
                 </div>
               </Col>

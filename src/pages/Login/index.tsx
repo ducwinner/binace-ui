@@ -109,7 +109,7 @@ function Login() {
                     </Form>
                   </div>
                   <div className="content-botton">Forgot PassWord ?</div>
-                  <Link to="/" className="content-botton">
+                  <Link to="/register" className="content-botton">
                     Register Now?
                   </Link>
                 </div>

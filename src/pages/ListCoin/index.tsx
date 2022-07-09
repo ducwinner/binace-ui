@@ -1,77 +1,61 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import CryptoApi from '../../api/CryptoApi';
 import OverviewMarket from './OverviewMarket';
-import { Input, Select, Tabs } from 'antd';
 import '../../styles/ListCoin/ListCoin.less';
-import { StarOutlined } from '@ant-design/icons';
-import TableListCoin from '../../components/TableListCoin';
-const { TabPane } = Tabs;
-const { Search } = Input;
-const { Option } = Select;
+import CryptoApi from '../../api/CryptoApi';
+import { useEffect, useState } from 'react';
+import ListCoinTable from './ListCoinTable';
+import { useSelector } from 'react-redux';
 
-var HightLightCoin: any[] = [];
-var NewCoin: any[] = [];
-var HightVolume: any[] = [];
-var HightMkc: any[] = [];
+var HightLightCoin: Object[] = [];
+var NewCoin: Object[] = [];
+var HightVolume: Object[] = [];
+var HightMkc: Object[] = [];
 function ListCoin() {
+  //Redux Theme
+  const { backGroudPrimary } = useSelector((state: any) => state.theme.colors);
+
   // State
-  const [dataCoin, setDataCoin] = useState<any[]>([]);
-  const [typeSearch, setTypeSearch] = useState<string>('Name');
+  const [dataCoinMKC, setDataCoinMKC] = useState<Object[]>([]);
+  const [dataCoinVolume, SetDataCoinVolume] = useState<Object[]>([]);
 
   //useEffect
+  useEffect(() => {
+    const fetchCoin = async () => {
+      const params = {
+        per_page: 200,
+        order: 'volume_desc',
+      };
+      type MyStructure = Object[] | any;
+
+      const listCoin: MyStructure = await CryptoApi.getAll(params);
+      SetDataCoinVolume(listCoin);
+    };
+    fetchCoin();
+  }, []);
+
   useEffect(() => {
     const fetchCoin = async () => {
       const params = {
         per_page: 100,
         order: 'market_cap_desc',
       };
-      type listCoinType = any[] | any;
+      type listCoinType = Object[] | any;
       const listCoin: listCoinType = await CryptoApi.getAll(params);
-      HightMkc = listCoin.slice(0, 3);
-      setDataCoin(listCoin);
+      setDataCoinMKC(listCoin);
     };
     fetchCoin();
   }, []);
 
-  useEffect(() => {
-    const fetchCoin = async () => {
-      const params = {
-        per_page: 100,
-        order: 'volume_desc',
-      };
+  // filter DataCoin for OverVIewMarket
+  HightMkc = dataCoinMKC.slice(0, 3);
+  NewCoin = dataCoinVolume.filter(
+    (e: any) => e.symbol === 'one' || e.symbol === 'icp' || e.symbol === 'sun'
+  );
+  HightLightCoin = dataCoinVolume.filter(
+    (e: any) => e.symbol === 'gmt' || e.symbol === 'vndc' || e.symbol === 'bnb'
+  );
+  HightVolume = dataCoinVolume.slice(0, 3);
 
-      type MyStructure = any[] | any;
-
-      const listCoin: MyStructure = await CryptoApi.getAll(params);
-      NewCoin = listCoin.filter(
-        (e: any) => e.symbol === 'one' || e.symbol === 'icp' || e.symbol === 'sun'
-      );
-      HightLightCoin = listCoin.filter(
-        (e: any) => e.symbol === 'gmt' || e.symbol === 'vndc' || e.symbol === 'bnb'
-      );
-      HightVolume = listCoin.slice(0, 3);
-    };
-    fetchCoin();
-  }, []);
-
-  // Function State
-  const onChange = (key: string) => {
-    console.log(key);
-  };
-
-  const onSearchChange = (input: ChangeEvent<HTMLInputElement>) => {
-    var DataCoinSearch: any[] = [];
-    if (typeSearch === 'Name') {
-      DataCoinSearch = dataCoin.map((e: any) => e.name === input);
-    } else {
-      DataCoinSearch = dataCoin.map((e: any) => e.symbol === input);
-    }
-    setDataCoin(DataCoinSearch);
-  };
-
-  const onSelectChange = (e: string) => {
-    setTypeSearch(e);
-  };
+  console.log(HightVolume);
   return (
     <div
       className="ListCoin"
@@ -80,6 +64,7 @@ function ListCoin() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: backGroudPrimary,
       }}
     >
       <OverviewMarket
@@ -88,64 +73,7 @@ function ListCoin() {
         CoinHightVolume={HightVolume}
         CoinNew={NewCoin}
       />
-      <div style={{ position: 'relative' }} className="ContainerListCoin">
-        <Tabs style={{ width: '100%' }} size="large" defaultActiveKey="2" onChange={onChange}>
-          <TabPane
-            tab={
-              <span>
-                {' '}
-                <StarOutlined /> Danh sách yêu thích
-              </span>
-            }
-            key="1"
-          >
-            Chưa có
-          </TabPane>
-          <TabPane tab="ALL Cryptos" key="2">
-            <Tabs size="middle" defaultActiveKey="1" onChange={onChange}>
-              <TabPane tab="Tất cả" key="1">
-                <TableListCoin dataCoin={dataCoin} />
-              </TabPane>
-              <TabPane tab="Metaverse" key="2">
-                Niêm yết mới
-              </TabPane>
-              <TabPane tab="Gaming" key="3">
-                Content of Tab Pane 3
-              </TabPane>{' '}
-              <TabPane tab="Defi" key="4">
-                Content of Tab Pane 3
-              </TabPane>{' '}
-              <TabPane tab="NFT" key="5">
-                Content of Tab Pane 3
-              </TabPane>
-            </Tabs>
-          </TabPane>
-          <TabPane tab="New Listing" key="3">
-            <Tabs size="middle" defaultActiveKey="1" onChange={onChange}>
-              <TabPane tab="Tất cả" key="1">
-                Tất cả
-              </TabPane>
-            </Tabs>
-          </TabPane>
-        </Tabs>
-        <Input.Group size="large" compact className="inputSearch">
-          <Select
-            onChange={onSelectChange}
-            style={{ width: '100px' }}
-            size="large"
-            defaultValue="Name"
-          >
-            <Option value="Name">Name</Option>
-            <Option value="Symbol">Symbol</Option>
-          </Select>
-          <Search
-            size="large"
-            onChange={onSearchChange}
-            placeholder={'Cryptocurrency' + typeSearch + '?'}
-            enterButton="Lọc Ngay"
-          />
-        </Input.Group>
-      </div>
+      <ListCoinTable dataCoinMKC={dataCoinMKC} />
     </div>
   );
 }

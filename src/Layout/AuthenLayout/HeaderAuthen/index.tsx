@@ -21,7 +21,7 @@ function Header() {
   return (
     <>
       <Menu
-        style={{ display: 'flex', justifyContent: 'space-between' }}
+        style={{ display: 'flex', justifyContent: 'center' }}
         theme={theme}
         onClick={onClick}
         selectedKeys={[current]}
@@ -38,7 +38,12 @@ function Header() {
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <Switch checked={theme === 'dark'} onChange={changeTheme} checkedChildren="Dark" unCheckedChildren="Light" />
+          <Switch
+            checked={theme === 'dark'}
+            onChange={changeTheme}
+            checkedChildren="Dark"
+            unCheckedChildren="Light"
+          />
         </Menu.Item>
       </Menu>
     </>

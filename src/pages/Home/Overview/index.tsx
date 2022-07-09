@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd';
 import { Input } from 'antd';
+import { useSelector } from 'react-redux';
 import '../../../styles/OverviewHome.less';
 
 const { Search } = Input;
@@ -7,9 +8,11 @@ const { Search } = Input;
 const onSearch = (value: string) => console.log(value);
 
 function Overview() {
+  const { text } = useSelector((state: any) => state.theme.colors);
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
   return (
-    <div style={{ backgroundColor: '#fafafa' }}>
-      <div style={{ margin: '0 42px', padding: '80px 24px 0 24px' }} className="OverviewInner">
+    <div style={{ width: '1200px', maxWidth: '100%' }}>
+      <div style={{ color: text }} className="OverviewInner">
         <div className="OverviewTop">
           <Row>
             <Col span={12}>
@@ -17,6 +20,7 @@ function Overview() {
                 <div className="content">Buy, trade, and hold 600+ cryptocurrencies on Binance</div>
                 <div className="search">
                   <Search
+                    className={darkMode ? 'darkMode' : ''}
                     placeholder="Email/phone"
                     allowClear
                     enterButton="Get Start"

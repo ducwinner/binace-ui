@@ -1,7 +1,12 @@
 import { Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
+import { StarOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { dataCoinsFollow } from '../../Data/CoinFollow';
+import IconFllow from '../IconFollow';
+import { useSelector } from 'react-redux';
+import '../../styles/component/TableListCoin.less';
 
 interface nameInterFace {
   name: string;
@@ -11,6 +16,7 @@ interface nameInterFace {
 
 interface DataType {
   key: number;
+  idCoin: string;
   name: nameInterFace;
   price: number;
   change24: number;
@@ -20,9 +26,13 @@ interface DataType {
 
 interface TableListCoinInterFace {
   dataCoin: any[];
+  TableType: 'all-coin' | 'fortfolio';
 }
 
-function TableListCoin({ dataCoin }: TableListCoinInterFace) {
+function TableListCoin({ dataCoin, TableType }: TableListCoinInterFace) {
+  // Redux Theme
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
+
   const columns: ColumnsType<DataType> = [
     {
       title: 'Tên',
@@ -46,18 +56,15 @@ function TableListCoin({ dataCoin }: TableListCoinInterFace) {
       title: 'Giá',
       dataIndex: 'price',
       key: 'price',
-      render: (_, record) => <div style={{ fontWeight: 500 }}>${record.price}</div>,
+      render: (_, { price }) => <div style={{ fontWeight: 500 }}>${price}</div>,
     },
     {
       title: <div style={{ textAlign: 'end' }}>Biên động 24H</div>,
       dataIndex: 'change24',
       key: 'change',
-      render: (_, record) => (
-        <div
-          style={{ textAlign: 'end' }}
-          className={record.change24 >= 0 ? 'changeUp' : 'changeDown'}
-        >
-          {record.change24}%
+      render: (_, { change24 }) => (
+        <div style={{ textAlign: 'end' }} className={change24 >= 0 ? 'changeUp' : 'changeDown'}>
+          {change24}%
         </div>
       ),
     },
@@ -65,21 +72,32 @@ function TableListCoin({ dataCoin }: TableListCoinInterFace) {
       title: <div style={{ textAlign: 'end' }}>KL 24H</div>,
       key: 'tags',
       dataIndex: 'volum24',
-      render: (_, record) => <div style={{ textAlign: 'end' }}>{record.volum24}</div>,
+      render: (_, { volum24 }) => <div style={{ textAlign: 'end' }}>{volum24}</div>,
     },
     {
       title: <div style={{ textAlign: 'end' }}>Vốn hoá thị trường</div>,
       key: 'tags',
       dataIndex: 'marketCap',
-      render: (_, record) => <div style={{ textAlign: 'end' }}>{record.marketCap}</div>,
+      render: (_, { marketCap }) => <div style={{ textAlign: 'end' }}>{marketCap}</div>,
     },
     {
       title: '',
       key: 'action',
-      render: () => (
-        <Space size="middle">
-          <Link to="/">Chi Tiết</Link>
-          <Link to="/">Follow</Link>
+      render: (_, { idCoin }) => (
+        <Space size="middle" style={{ color: '#C99400' }}>
+          <Link style={{ color: '#C99400' }} to="/">
+            Chi Tiết
+          </Link>
+          {TableType === 'all-coin' ? (
+            <div style={{ color: '#C99400', cursor: 'pointer' }}>
+              <IconFllow idCoin={idCoin} title="Follow" state={dataCoinsFollow.includes(idCoin)} />
+            </div>
+          ) : (
+            <div style={{ color: '#C99400', cursor: 'pointer' }}>
+              <StarOutlined />
+              Thêm vào Fortfolio
+            </div>
+          )}
         </Space>
       ),
     },
@@ -88,16 +106,22 @@ function TableListCoin({ dataCoin }: TableListCoinInterFace) {
   const data: DataType[] = dataCoin.map((e: any, index: any) => {
     return {
       key: index,
-      name: { name: e.name, symbol: e.symbol, img: e.image },
-      price: e.current_price?.toLocaleString(),
-      change24: e.price_change_percentage_24h?.toFixed(2),
-      volum24: e.total_volume?.toLocaleString(),
-      marketCap: e.market_cap?.toLocaleString(),
+      idCoin: e?.id,
+      name: { name: e?.name, symbol: e?.symbol, img: e?.image },
+      price: e?.current_price.toLocaleString(),
+      change24: e?.price_change_percentage_24h.toFixed(2),
+      volum24: e?.total_volume.toLocaleString(),
+      marketCap: e?.market_cap.toLocaleString(),
     };
   });
   return (
-    <div className="TableListCoin">
-      <Table columns={columns} dataSource={data} />
+    <div>
+      <Table
+        className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}
+        columns={columns}
+        dataSource={data}
+        pagination={{ pageSize: 15, position: ['topRight'] }}
+      />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import '../../styles/component/TableOverView.less';
 
 interface TableOverViewInterFace {
@@ -6,19 +7,24 @@ interface TableOverViewInterFace {
 }
 
 function TableOverView({ listCoin, describe }: TableOverViewInterFace) {
+  const { backGroudPrimary, backGroudSP, backGroudHover, textPrimary, text } = useSelector(
+    (state: any) => state.theme.colors
+  );
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
+
   return (
-    <div className="TableOverView">
+    <div className={darkMode ? 'darkMode TableOverView' : 'TableOverView'}>
       <ul className="">
         <li className="coinDescribe">{describe}</li>
         {listCoin.map((e: any, id: number) => {
           return (
             <li key={id} className="coinRow">
-              <div style={{ fontWeight: 600 }} className="symbol">
+              <div style={{ fontWeight: 600, color: text }} className="symbol">
                 <img src={e.image} alt={e.symbol}></img>
                 &nbsp;
                 {e.symbol?.toUpperCase()}
               </div>
-              <div style={{ fontWeight: 500 }} className="price">
+              <div style={{ fontWeight: 500, color: text }} className="price">
                 {e.current_price < 100 ? e.current_price?.toFixed(5) : e.current_price?.toFixed(1)}
               </div>
               <div

@@ -1,8 +1,9 @@
 import axiosClient from './AxiosApi';
 
 interface paramsInterface {
-  per_page: Number;
-  order: string;
+  per_page?: Number;
+  order?: string;
+  ids?: string;
 }
 
 const CryptoApi = {
@@ -11,12 +12,12 @@ const CryptoApi = {
     return axiosClient.get(url, { params });
   },
 
-  get(params: string) {
+  get(params: paramsInterface) {
     const url = '';
     return axiosClient.get(url, { params });
   },
 
-  add(data: string) {
+  add(data: paramsInterface) {
     const url = `/`;
     return axiosClient.post(url, data);
   },
@@ -26,7 +27,7 @@ const CryptoApi = {
     return axiosClient.post(url, data);
   },
 
-  remove(id: string) {
+  remove(id: paramsInterface) {
     const url = `/${id}`;
     return axiosClient.delete(url);
   },

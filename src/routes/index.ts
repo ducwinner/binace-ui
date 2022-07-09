@@ -8,6 +8,7 @@ import {HeaderOnly} from "../Layout"
 import AuthenLayout from "../Layout/AuthenLayout"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
+import CoinDetail from "../pages/Detail"
 
 
 interface Router {
@@ -20,6 +21,7 @@ const publicRouter: Router[] = [
     {path: "/", component: Home},
     {path: "/market", component: ListCoin},
     {path: "/profile", component: Profile},
+    {path: "/detail/:id", component: CoinDetail},
     {path: "/upLoad", component: UpLoad, layout: HeaderOnly},
     {path: "/noLayout", component: NoLayout, layout: null},
     {path: "/login", component: Login, layout: AuthenLayout},
