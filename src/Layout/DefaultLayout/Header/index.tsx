@@ -248,17 +248,17 @@ function Header() {
       ],
     },
     {
-      label: 'Tin Tức',
-      popupClassName: 'headerSubMenu',
-      key: uuidv4(),
-    },
-    {
       label: 'NFT',
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
     },
     {
       label: <Link to="/detail/bitcoin">Cryptocurrency Detail</Link>,
+      popupClassName: 'headerSubMenu',
+      key: uuidv4(),
+    },
+    {
+      label: <Link to="/fortfolio">My FortFolio</Link>,
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
     },
@@ -280,6 +280,7 @@ function Header() {
     {
       label: (
         <Switch
+          style={{ padding: 0 }}
           checked={theme === 'dark'}
           onChange={changeTheme}
           checkedChildren="Light"
@@ -292,7 +293,7 @@ function Header() {
   ];
 
   return (
-    <>
+    <div>
       <Menu
         style={{ height: '64px', alignItems: 'center' }}
         theme={theme}
@@ -302,7 +303,7 @@ function Header() {
         items={Submenus}
         className={'headerMenu'}
       />
-    </>
+    </div>
   );
 }
 

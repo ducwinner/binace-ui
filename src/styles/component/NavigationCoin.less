@@ -1,0 +1,70 @@
+.navigation-coin {
+    margin-top: 40px;
+}
+
+.navigation-header {
+    font-size: 2.8rem;
+    font-weight: 600;
+}
+
+.navigation-container {
+    padding: 0;
+    margin: 20px 0;
+
+    li:hover {
+        border-radius: 5px;
+        background-color: #fafafa;
+    }
+
+    .darkMode {
+        &:hover {
+            background-color: rgb(11 14 17);
+        }
+    }
+}
+
+.navigation-container li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    width: 100%;
+    padding: 12px 8px ;
+
+    img {
+        width: 36px;
+        margin-right: 12px;
+    }
+
+    .infor {
+        display: flex;
+        align-items: center;
+        > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .name {
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .symbol {
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+    }
+
+    .price {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 1.4rem;
+
+        .change {
+            text-align: end;
+        }
+    }
+
+}

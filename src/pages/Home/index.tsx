@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { fethchLstCoinMKC } from '../../Redux/CoinApiSlice';
 import IntroduceFortfolio from './IntroduceFortfolio';
 import NeedHelp from './NeedHelp';
 import Overview from './Overview';
@@ -7,6 +10,13 @@ import PossibilitiesBinace from './possibilitiesBinace';
 
 function Home() {
   const { backGroudSP, backGroudPrimary } = useSelector((state: any) => state.theme.colors);
+  const data = useSelector((state: any) => state.listCoinApi.lstCoinMkc);
+  const dispatch = useDispatch<any>();
+
+  useEffect(() => {
+    dispatch(fethchLstCoinMKC());
+  }, [dispatch]);
+  console.log(data);
 
   return (
     <div

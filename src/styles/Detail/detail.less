@@ -1,7 +1,12 @@
 .coin-detail {
+    margin: 100px 0;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .ant-pagination {
+        display: none;
+    }
 }
 
 .coin-detail-inner {
@@ -79,6 +84,17 @@
     font-weight: 600;
 }
 
+.price-live-data {
+    font-size: 3.2rem;
+    font-weight: 600;
+
+    .descrine {
+        font-weight: 400;
+        font-size: 1.6rem;
+        margin-top: 32px;
+    }
+}
+
 .price-infomation {
     margin: 40px 0;
     .price-infomation-title {
@@ -92,3 +108,60 @@
         font-weight: 500;
     }
 }
+
+.detail-transaction-fee {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 35px;
+        border-radius: 8px;
+    position: relative;
+
+    img {
+        width: 25px;
+        position: absolute;
+        left: 3px;
+        top: 37px;
+    }
+
+    > div {
+        margin: 5px 0;
+    }
+
+    .title {
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+
+    .progess {
+        display: flex;
+        justify-content: flex-start;   
+        align-items: center;
+
+        .exchanges {
+            font-size: 1.6rem;
+            font-weight: 600;
+            width: 200px
+        }
+    }
+}
+
+.progess .progess-percent {
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    height: 16px;
+    background-color: rgb(233, 232, 232);
+    width: 100%;
+
+    div {
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 5px;
+        height: 100%;
+        text-align: end;
+    }
+}
+

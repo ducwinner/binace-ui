@@ -1,0 +1,16 @@
+.table-price-change {
+    margin: 40px 0;
+
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+        border-bottom: none;
+    }
+
+    .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+        position: absolute;
+        width: 0;
+        height: 0;
+        content: '';
+    }
+}
+

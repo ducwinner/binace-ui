@@ -1,65 +1,95 @@
+import { current } from '@reduxjs/toolkit';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import React from 'react';
+import { useSelector } from 'react-redux';
+import '../../styles/component/TablePriceChange.less';
 
 interface DataType {
   key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  change: string;
+  amount: any;
+  percent: any;
 }
 
 interface pricChangeInterface {
-  dataCoin: Object[];
+  day1: any;
+  day7: any;
+  day30: any;
+  ath: any;
+  price: any;
 }
 
-function TablePriceChange({ dataCoin }: pricChangeInterface) {
+function TablePriceChange({ day1, day7, day30, ath, price }: pricChangeInterface) {
+  //Theme
+  const {
+    text,
+    backGroudSP,
+    textBlurTitle,
+    backGroudPrimary,
+    textBlurPrimary,
+    priceUp,
+    priceDown,
+  } = useSelector((state: any) => state.theme.colors);
+  //
+  const changeYear = price - ath;
+  const percentChangeYear = ((changeYear * 100) / ath).toFixed(2);
+
+  const percent1 = (day1 * price).toFixed(2);
+  const percent7 = (day7 * price).toFixed(2);
+  const percent30 = (day30 * price).toFixed(2);
+
   const columns: ColumnsType<DataType> = [
     {
       title: 'Change',
       dataIndex: 'change',
       key: 'change',
-      render: (text) => <a>{text}</a>,
+      render: (a) => <div style={{ color: text }}>{a}</div>,
     },
     {
       title: 'Amount',
       dataIndex: 'amount',
       key: 'amount',
+      render: (_, { amount }) => <div style={{ color: text }}>$&nbsp;{amount}</div>,
     },
     {
       title: '%',
       dataIndex: 'percent',
       key: 'percent',
+      render: (_, { percent }) => (
+        <div style={{ color: percent > 0 ? priceUp : priceDown }}>{percent}%</div>
+      ),
     },
   ];
 
   const data: DataType[] = [
     {
       key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
+      change: 'To Day',
+      amount: percent1,
+      percent: day1,
     },
     {
       key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
+      change: '7 Day',
+      amount: percent7,
+      percent: day7,
     },
     {
       key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
+      change: '30 Day',
+      amount: percent30,
+      percent: day30,
+    },
+    {
+      key: '4',
+      change: '1 Year',
+      amount: changeYear,
+      percent: percentChangeYear,
     },
   ];
   return (
-    <div className="Table-Change">
-      <Table columns={columns} dataSource={data} />;
+    <div className="table-price-change">
+      <Table columns={columns} dataSource={data} />
     </div>
   );
 }

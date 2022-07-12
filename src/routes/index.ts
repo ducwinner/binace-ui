@@ -9,7 +9,7 @@ import AuthenLayout from "../Layout/AuthenLayout"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
 import CoinDetail from "../pages/Detail"
-
+import FortFolio from "../pages/FortFolio"
 
 interface Router {
     path: string
@@ -21,6 +21,7 @@ const publicRouter: Router[] = [
     {path: "/", component: Home},
     {path: "/market", component: ListCoin},
     {path: "/profile", component: Profile},
+    {path: "/fortfolio", component: FortFolio},
     {path: "/detail/:id", component: CoinDetail},
     {path: "/upLoad", component: UpLoad, layout: HeaderOnly},
     {path: "/noLayout", component: NoLayout, layout: null},
