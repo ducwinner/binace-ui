@@ -19,11 +19,19 @@ export interface lstValueInterFace {
   totalProfitLoss: number;
 }
 
+export interface DataPieChartInterFace {
+  id: string;
+  value: number;
+}
+
 function FortFolio() {
   //Redux
-  const { backGroudPrimary, text } = useSelector((state: any) => state.theme.colors);
+  const { backGroudPrimary, text, textBlurPrimary } = useSelector(
+    (state: any) => state.theme.colors
+  );
   const dataUser: DataInterFace[] = useSelector((state: any) => state.fortfolio.data);
   const dispatch: any = useDispatch();
+  const [dataPieChart, setDataPieChart] = useState<DataPieChartInterFace[]>([]);
   const [lstCoinUser, setLstCoinUser] = useState<any[]>([]);
   const [lstValue, setLstValue] = useState<lstValueInterFace>({
     totalBalance: 0,
@@ -32,8 +40,6 @@ function FortFolio() {
     totalFunds: 0,
     totalProfitLoss: 0,
   });
-
-  console.log('dataUser', dataUser);
 
   useEffect(() => {
     var lstCoinId: string[] = [];
@@ -48,6 +54,53 @@ function FortFolio() {
     };
     fetchCoin();
   }, [dataUser, dispatch]);
+
+  // Convert dataCoin to use PieChart
+  useEffect(() => {
+    interface DataPieInterface {
+      name: string;
+      value: number;
+    }
+
+    const dataPieChart: DataPieInterface[] = dataUser.map((e) => ({
+      name: e.idcoin?.toUpperCase(),
+      value: e.quantity * e.priceInput,
+    }));
+    //sort Array
+
+    function compare(a: DataPieInterface, b: DataPieInterface) {
+      // Sử dụng toUpperCase() để chuyển các kí tự về cùng viết hoa
+      var typeA = a.value;
+      var typeB = b.value;
+
+      let comparison = 0;
+      if (typeA < typeB) {
+        comparison = 1;
+      } else if (typeA > typeB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+    dataPieChart.sort(compare);
+    //-------------------------------
+    var result: any[] = [];
+    for (var i = 0; i < 4; i++) {
+      if (i < 3) {
+        result.push(dataPieChart[i]);
+      } else {
+        const totalOrther = dataPieChart.reduce((total: number, item: any, index) => {
+          let valueOrther = 0;
+          if (index >= 3) {
+            valueOrther = item.value;
+          }
+          return total + valueOrther;
+        }, 0);
+        console.log(totalOrther);
+        result.push({ name: 'ORTHER', value: totalOrther });
+      }
+    }
+    setDataPieChart(result);
+  }, [dataUser]);
 
   useEffect(() => {
     if (lstCoinUser.length > 0) {
@@ -88,45 +141,57 @@ function FortFolio() {
   };
 
   return (
-    <div className="fortfolio">
+    <div className="fortfolio" style={{ backgroundColor: backGroudPrimary }}>
       <div className="fortfolio-inner">
-        <Tabs defaultActiveKey="1" onChange={onChange}>
+        <Tabs
+          style={{ color: textBlurPrimary, fontWeight: 500 }}
+          defaultActiveKey="1"
+          onChange={onChange}
+        >
           <TabPane tab="FortFolio" key="1">
-            <Tabs defaultActiveKey="1" onChange={onChange}>
+            <Tabs
+              style={{ color: textBlurPrimary, fontWeight: 500 }}
+              defaultActiveKey="1"
+              onChange={onChange}
+            >
               <TabPane tab="My Coins" key="1">
                 <div className="fortfolio-overview">
                   <Row>
-                    <Col span={12} className="overview-total">
-                      <Row style={{ color: text, padding: '50px' }} gutter={[0, 32]}>
+                    <Col style={{ paddingTop: '30px' }} span={12} className="overview-total">
+                      <Row gutter={[0, 32]}>
                         <Col span={12}>
-                          <div className="content">Total Balance</div>
-                          <div className="describe">${lstValue.totalBalance?.toFixed(2)}</div>
+                          <div style={{ color: textBlurPrimary }} className="content">
+                            Total Balance
+                          </div>
+                          <div style={{ color: text }} className="describe">
+                            ${lstValue.totalBalance?.toFixed(2)}
+                          </div>
                         </Col>
                         <Col span={12}>
-                          <div className="content">
+                          <div style={{ color: textBlurPrimary }} className="content">
                             24h Portfolio Change ({lstValue.totalPercentChange24h?.toFixed(2)}%)
                           </div>
-                          <div className="describe">{lstValue.totalChange24h?.toFixed(2)}</div>
+                          <div style={{ color: text }} className="describe">
+                            ${lstValue.totalChange24h?.toFixed(2)}
+                          </div>
                         </Col>
                         <Col span={12}>
-                          <div className="content">
+                          <div style={{ color: textBlurPrimary }} className="content">
                             Total Profit Loss (
                             {((lstValue.totalProfitLoss * 100) / lstValue.totalFunds)?.toFixed(2)}%)
                           </div>
-                          <div className="describe">{lstValue.totalProfitLoss?.toFixed(2)}</div>
+                          <div style={{ color: text }} className="describe">
+                            ${lstValue.totalProfitLoss?.toFixed(2)}
+                          </div>
                         </Col>
                       </Row>
                     </Col>
                     <Col span={12} className="overview-chart">
-                      <Chart />
+                      <Chart data={dataPieChart} />
                     </Col>
                   </Row>
                 </div>
-                <TableCoinFortFolio
-                  lstValue={lstValue}
-                  lstCoinUser={lstCoinUser}
-                  dataUser={dataUser}
-                />
+                <TableCoinFortFolio lstValue={lstValue} lstCoinUser={lstCoinUser} />
               </TabPane>
               <TabPane tab="My NFT" key="2">
                 Content of Tab Pane 2

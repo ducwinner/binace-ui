@@ -30,6 +30,8 @@ function TablePriceChange({ day1, day7, day30, ath, price }: pricChangeInterface
     priceUp,
     priceDown,
   } = useSelector((state: any) => state.theme.colors);
+
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
   //
   const changeYear = price - ath;
   const percentChangeYear = ((changeYear * 100) / ath).toFixed(2);
@@ -89,7 +91,11 @@ function TablePriceChange({ day1, day7, day30, ath, price }: pricChangeInterface
   ];
   return (
     <div className="table-price-change">
-      <Table columns={columns} dataSource={data} />
+      <Table
+        className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}
+        columns={columns}
+        dataSource={data}
+      />
     </div>
   );
 }

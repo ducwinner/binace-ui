@@ -153,11 +153,6 @@ function Header() {
       ],
     },
     {
-      label: <Link to="/market">Thị trường</Link>,
-      popupClassName: 'headerSubMenu',
-      key: uuidv4(),
-    },
-    {
       label: 'Giao dịch',
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
@@ -247,6 +242,12 @@ function Header() {
         },
       ],
     },
+    {
+      label: <Link to="/market">Thị trường</Link>,
+      popupClassName: 'headerSubMenu',
+      key: uuidv4(),
+    },
+
     {
       label: 'NFT',
       popupClassName: 'headerSubMenu',

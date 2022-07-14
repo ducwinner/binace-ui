@@ -43,7 +43,23 @@ const initialState: InitialStateInterFace = {
         idcoin: "dogecoin",
         quantity: 100000,
         priceInput: 0.1,
+      },    
+      {
+        idcoin: "aave",
+        quantity: 86,
+        priceInput: 160,
+      },   
+      {
+        idcoin: "1inch",
+        quantity: 87932,
+        priceInput: 0.2,
       },
+      {
+        idcoin: "uniswap",
+        quantity: 300,
+        priceInput: 4.3,
+      },
+
     ],
 }
 

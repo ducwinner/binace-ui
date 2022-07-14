@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { WarningOutlined } from '@ant-design/icons';
-import CryptoApi from '../../api/CryptoApi';
 import ButtonLink from '../../components/ButtonLink';
 import TablePriceChange from '../../components/TablePriceChange';
 import '../../styles/Detail/detail.less';
@@ -47,6 +46,7 @@ function CoinDetail() {
     textBlurPrimary,
     priceUp,
     priceDown,
+    textPrimary,
   } = useSelector((state: any) => state.theme.colors);
   const coinDetail = useSelector((state: any) => state.listCoinApi.detailCoin);
   const lstCoinMkc = useSelector((state: any) => state.listCoinApi.lstCoinMkc);
@@ -113,7 +113,7 @@ function CoinDetail() {
               </div>
               {/* <TradeViewChart
                 pair="BTCBUSD"
-                interval="15m"
+                interval="0"
                 containerStyle={{
                   minHeight: '100vh',
                   marginBottom: '30px',
@@ -264,9 +264,13 @@ function CoinDetail() {
             </Col>
             <Col span={10} className="coin-detail-right">
               <div className="buy-crypto">
-                <div className="header">{symbol} Price Calculator</div>
+                <div style={{ color: textBlurTitle }} className="header">
+                  {symbol} Price Calculator
+                </div>
                 <div style={{ backgroundColor: backGroudSP }} className="calculate">
-                  <label htmlFor="calculate">Buy</label>
+                  <label style={{ color: textBlurPrimary }} htmlFor="calculate">
+                    Buy
+                  </label>
                   <div
                     style={{
                       display: 'flex',
@@ -276,7 +280,7 @@ function CoinDetail() {
                     }}
                   >
                     <input
-                      style={{ backgroundColor: backGroudSP }}
+                      style={{ backgroundColor: backGroudSP, color: textPrimary }}
                       type="number"
                       value={inputPrice}
                       id="calculate"

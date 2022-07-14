@@ -15,6 +15,8 @@ function ListCoin() {
   const lstCoinMkc = useSelector((state: any) => state.listCoinApi.lstCoinMkc);
   const lstCoinVolume = useSelector((state: any) => state.listCoinApi.lstCoinVolume);
   const dispatch = useDispatch<any>();
+
+  console.log(lstCoinMkc);
   // State
 
   //useEffect

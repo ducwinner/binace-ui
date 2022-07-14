@@ -14,7 +14,9 @@ interface ListCoinTableInterFace {
 
 function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
   // Redux
-  const { backGroudPrimary, textBlurPrimary } = useSelector((state: any) => state.theme.colors);
+  const { backGroudPrimary, textBlurPrimary, textPrimary } = useSelector(
+    (state: any) => state.theme.colors
+  );
   const darkMode = useSelector((state: any) => state.theme.darkMode);
 
   const listCoinFollow = useSelector((state: any) => state.coinFollow);
@@ -141,7 +143,7 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
             <Option value="Symbol">Symbol</Option>
           </Select>
           <Input
-            style={{ backgroundColor: backGroudPrimary }}
+            style={{ backgroundColor: backGroudPrimary, color: textPrimary }}
             maxLength={8}
             size="large"
             onChange={onSearchChange}

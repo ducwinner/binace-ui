@@ -12,20 +12,21 @@
     flex-direction: column;
 }
 
-.fortfolio-overview .total {
+.fortfolio-overview .overview-total {
     display: flex; 
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    padding: 50px;
 
     .content {
-        font-size: 1.4rem;
-        font-weight: 500;
+        font-size: 1.6rem;
+        font-weight: 400;
     }
 
-    .desscribe {
+    .describe {
         font-size: 2rem;
-        font-weight: 500;
+        font-weight: 400;
     }
 
 }
@@ -34,5 +35,60 @@
     canvas {
         width: 200px !important;
         height: 200px !important;
+    }
+}
+
+.RowHeight {
+    .ant-table-tbody > tr.ant-table-row td {
+        height: 64px;
+    }
+}
+
+//DarkMode Table
+
+.darkMode {
+    .ant-table-thead {
+        .ant-table-cell {
+            background-color: rgb(11 14 17);
+            color: rgb(234, 236, 239);
+        }
+    }
+
+    .ant-table-tbody {
+        background-color: hsl(225, 14%, 11%);
+
+        .ant-table-cell {
+            color: rgb(234, 236, 239);
+        }
+
+    }
+
+
+    .ant-table-tbody > tr.ant-table-row:hover td {
+            background-color: rgb(11 14 17);
+    }
+
+}
+// DarkMode Tabs
+
+.darkMode {
+    .ant-select-selector, .ant-select-arrow {
+        background-color: #181a20 !important;
+        color: rgb(234, 236, 239)
+    }
+
+    .ant-pagination-item-link {
+        background-color: #181a20 !important;
+    
+        span {
+            color: rgb(234, 236, 239)
+        }
+    }
+    
+    .ant-pagination-item-active, .ant-pagination-item {
+        background-color: #181a20 !important;
+        a {
+            color: rgb(234, 236, 239) !important;
+        }
     }
 }

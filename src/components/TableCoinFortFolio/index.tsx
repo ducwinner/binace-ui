@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ConvertPrice from '../../GlobalFunction/ConvertPrice';
 import { lstValueInterFace } from '../../pages/FortFolio';
@@ -18,50 +18,56 @@ interface DataType {
   coin: CoinInterface;
   symbol: string;
   price: number;
+  hodding: number;
   change1h: number;
   change24h: number;
   change7d: number;
   mkc: number;
-  last7day: any;
+  last7day: Array<any>;
   quantity: number;
   priceInput: number;
+  ratioHodding: number;
+  PNL: number;
+  ratioPNL: number;
 }
 
 interface TableCoinFortFolioInterFace {
   lstValue: lstValueInterFace;
   lstCoinUser: any;
-  dataUser: DataInterFace[];
 }
 
-function TableCoinFortFolio({ lstValue, lstCoinUser, dataUser }: TableCoinFortFolioInterFace) {
+function TableCoinFortFolio({ lstValue, lstCoinUser }: TableCoinFortFolioInterFace) {
+  // REDUX
   const { text, textBlurPrimary, priceUp, priceDown } = useSelector(
     (state: any) => state.theme.colors
   );
 
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
+  const dataUser: DataInterFace[] = useSelector((state: any) => state.fortfolio.data);
+
+  const [dataChart, setDataChart] = useState<any>([]);
+
   useEffect(() => {
     var lstCoinId: any[] = [];
     dataUser.forEach((e: any) => lstCoinId.push(e.idcoin));
-
-    const dataChart: any[] = [];
-    const flattenArray = (data: any) => {
-      const chart1 = data.map((e: any[]) => e.map((item) => item[1]));
-      dataChart.push(chart1);
+    const FetchData = async () => {
+      const lstDataChart = await Promise.all(
+        lstCoinId.map((idcoin: any) =>
+          fetch(
+            `https://api.coingecko.com/api/v3/coins/${idcoin}/market_chart?vs_currency=usd&days=7&interval=weekly`
+          )
+            .then((response) => response.json())
+            .then((data) => data.prices)
+        )
+      );
+      const result = lstDataChart.map((item1) =>
+        item1
+          .filter((item2: any, index: any) => index % 5 === 0)
+          .map((item3: any) => ({ a: item3[0], b: item3[1] }))
+      );
+      setDataChart(result);
     };
-    lstCoinId.forEach((idcoin: any) =>
-      fetch(`https://api.coingecko.com/api/v3/coins/${idcoin}/market_chart?vs_currency=usd&days=7`)
-        .then((response) => response.json())
-        .then((data) => flattenArray(data.prices))
-    );
-    console.log(dataChart);
-
-    // const chart2 = chart1.map((e: any) =>
-    //   e.filter((e: any, index: any) => {
-    //     if (index % 2 !== 0) {
-    //       return e;
-    //     }
-    //     return e;
-    //   })
-    // );
+    FetchData();
   }, [dataUser]);
 
   const columns: ColumnsType<DataType> = [
@@ -76,7 +82,7 @@ function TableCoinFortFolio({ lstValue, lstCoinUser, dataUser }: TableCoinFortFo
       title: 'Coin',
       dataIndex: 'coin',
       key: 'coin',
-      render: (_, { coin, symbol }) => (
+      render: (_, { coin }) => (
         <div>
           <img style={{ width: '25px' }} src={coin.img} alt="" />
           &nbsp; {coin.name}
@@ -103,7 +109,7 @@ function TableCoinFortFolio({ lstValue, lstCoinUser, dataUser }: TableCoinFortFo
       dataIndex: 'change1h',
       key: 'change1h',
       render: (change1h) => (
-        <div style={{ color: change1h > 0 ? priceUp : priceDown }}>{change1h}%</div>
+        <div style={{ color: change1h > 0 ? priceUp : priceDown }}>{change1h?.toFixed(2)}%</div>
       ),
       width: 60,
     },
@@ -112,7 +118,7 @@ function TableCoinFortFolio({ lstValue, lstCoinUser, dataUser }: TableCoinFortFo
       dataIndex: 'change24h',
       key: '24h',
       render: (change24h) => (
-        <div style={{ color: change24h > 0 ? priceUp : priceDown }}>{change24h}%</div>
+        <div style={{ color: change24h > 0 ? priceUp : priceDown }}>{change24h?.toFixed(2)}%</div>
       ),
       width: 60,
     },
@@ -121,7 +127,7 @@ function TableCoinFortFolio({ lstValue, lstCoinUser, dataUser }: TableCoinFortFo
       dataIndex: 'change7d',
       key: 'change7d',
       render: (change7d) => (
-        <div style={{ color: change7d > 0 ? priceUp : priceDown }}>{change7d}%</div>
+        <div style={{ color: change7d > 0 ? priceUp : priceDown }}>{change7d?.toFixed(2)}%</div>
       ),
       width: 60,
     },
@@ -135,53 +141,66 @@ function TableCoinFortFolio({ lstValue, lstCoinUser, dataUser }: TableCoinFortFo
     {
       title: 'last 7 day',
       dataIndex: 'last7day',
-      key: 'mkc',
-      render: (mkc) => <LineChartCoin />,
+      key: 'last7day',
+      render: (last7day) => <LineChartCoin data={last7day} />,
       width: 100,
     },
     {
       title: 'Holdings',
       key: 'Holdings',
-      render: (_, { quantity, priceInput, symbol }) => (
+      render: (_, { quantity, hodding, symbol, ratioHodding }) => (
         <div style={{ color: text }}>
-          <div>${priceInput}</div>
+          <div>
+            ${hodding?.toFixed(0)}&nbsp;({ratioHodding?.toFixed(0)}%)
+          </div>
           <div>
             {quantity}
-            {symbol}
+            <span style={{ fontWeight: 500 }}>{symbol}</span>
           </div>
         </div>
       ),
     },
     {
       title: 'PNL',
-      dataIndex: 'PNL',
-      key: 'PNL',
+      dataIndex: 'pnl',
+      key: 'pnl',
+      render: (_, { PNL, ratioPNL }) => (
+        <div style={{ color: text }}>
+          <div>${PNL?.toFixed(0)}</div>
+          <div style={{ color: ratioPNL > 0 ? priceUp : priceDown }}>{ratioPNL?.toFixed(0)}%</div>
+        </div>
+      ),
     },
   ];
-  const data: DataType[] = lstCoinUser.map((e: any) => {
-    const coin = dataUser.filter((coin: any) => coin.idcoin === e.id)[0];
-    fetch(`https://api.coingecko.com/api/v3/coins/${e.id}/market_chart?vs_currency=usd&days=7`)
-      .then((response) => response.json())
-      .then((data) => data.prices);
+  const data: DataType[] = dataUser.map((e: any, index: any) => {
+    const coin = lstCoinUser.filter((coin: any) => coin.id === e.idcoin)[0];
     return {
-      key: e.id,
-      rank: e.market_cap_rank,
-      coin: { img: e.image, name: e.name },
-      symbol: e.symbol?.toUpperCase(),
-      price: e.current_price,
-      change1h: e.price_change_percentage_1h_in_currency?.toFixed(2),
-      change24h: e.price_change_percentage_24h_in_currency.toFixed(2),
-      change7d: e.price_change_percentage_7d_in_currency.toFixed(2),
-      mkc: ConvertPrice(e.market_cap),
-      last7day: 'price',
-      quantity: coin.quantity,
-      priceInput: coin.priceInput,
+      key: index,
+      rank: coin?.market_cap_rank,
+      coin: { img: coin?.image, name: coin?.name },
+      symbol: coin?.symbol.toUpperCase(),
+      price: coin?.current_price,
+      change1h: coin?.price_change_percentage_1h_in_currency,
+      change24h: coin?.price_change_percentage_24h_in_currency,
+      change7d: coin?.price_change_percentage_7d_in_currency,
+      mkc: ConvertPrice(coin?.market_cap),
+      last7day: dataChart[index],
+      quantity: e?.quantity,
+      priceInput: e?.priceInput,
+      hodding: coin?.current_price * e?.quantity,
+      ratioHodding: (coin?.current_price * e?.quantity * 100) / lstValue.totalBalance,
+      PNL: (coin?.current_price - e?.priceInput) * e?.quantity,
+      ratioPNL: ((coin?.current_price - e?.priceInput) * 100) / e?.priceInput,
     };
   });
 
   return (
     <div className="table-fortfolio">
-      <Table columns={columns} dataSource={data} />
+      <Table
+        className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}
+        columns={columns}
+        dataSource={data}
+      />
     </div>
   );
 }

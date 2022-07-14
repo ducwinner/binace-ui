@@ -7,9 +7,7 @@ interface TableOverViewInterFace {
 }
 
 function TableOverView({ listCoin, describe }: TableOverViewInterFace) {
-  const { backGroudPrimary, backGroudSP, backGroudHover, textPrimary, text } = useSelector(
-    (state: any) => state.theme.colors
-  );
+  const { priceDown, priceUp, text } = useSelector((state: any) => state.theme.colors);
   const darkMode = useSelector((state: any) => state.theme.darkMode);
 
   return (
@@ -28,8 +26,10 @@ function TableOverView({ listCoin, describe }: TableOverViewInterFace) {
                 {e.current_price < 100 ? e.current_price?.toFixed(5) : e.current_price?.toFixed(1)}
               </div>
               <div
-                style={{ fontWeight: 600 }}
-                className={e.price_change_percentage_24h > 0 ? 'changeUp' : 'changeDown'}
+                style={{
+                  color: e.price_change_percentage_24h > 0 ? priceUp : priceDown,
+                  fontWeight: 600,
+                }}
               >
                 {e.price_change_percentage_24h > 0 ? '+' : ''}
                 {e.price_change_percentage_24h?.toFixed(2)}%

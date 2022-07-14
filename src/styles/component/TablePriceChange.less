@@ -12,5 +12,57 @@
         height: 0;
         content: '';
     }
+
+    .ant-table-cell {
+        border-top-left-radius: 0px !important;
+    }
+
+    .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+        position: absolute;
+    top: 50%;
+    right: 0;
+    width: 0px;
+    height: 1.6em;
+    background-color: rgba(0, 0, 0, 0.06);
+    transform: translateY(-50%);
+    transition: background-color 0.3s;
+    content: '';
+    }
 }
 
+
+.darkMode {
+    .ant-table-thead {
+        .ant-table-cell {
+            background-color: rgb(11 14 17);
+            color: rgb(234, 236, 239);
+        }
+    }
+
+    .ant-table-tbody {
+        background-color: hsl(225, 14%, 11%);
+
+        .ant-table-cell {
+            color: rgb(234, 236, 239);
+        }
+
+    }
+
+
+    .ant-table-tbody > tr.ant-table-row:hover td {
+            background-color: rgb(11 14 17);
+    }
+
+    .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+        position: absolute;
+    top: 50%;
+    right: -2px;
+    width: 2px;
+    height: 52px;
+    background-color: rgb(11 14 17);
+    transform: translateY(-50%);
+    transition: background-color 0.3s;
+    content: '';
+    }
+
+}

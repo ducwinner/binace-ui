@@ -31,6 +31,7 @@ interface TableListCoinInterFace {
 
 function TableListCoin({ dataCoin, TableType }: TableListCoinInterFace) {
   // Redux Theme
+  const { priceUp, priceDown } = useSelector((state: any) => state.theme.colors);
   const darkMode = useSelector((state: any) => state.theme.darkMode);
 
   const columns: ColumnsType<DataType> = [
@@ -63,7 +64,7 @@ function TableListCoin({ dataCoin, TableType }: TableListCoinInterFace) {
       dataIndex: 'change24',
       key: 'change',
       render: (_, { change24 }) => (
-        <div style={{ textAlign: 'end' }} className={change24 >= 0 ? 'changeUp' : 'changeDown'}>
+        <div style={{ color: change24 > 0 ? priceUp : priceDown, textAlign: 'end' }}>
           {change24}%
         </div>
       ),

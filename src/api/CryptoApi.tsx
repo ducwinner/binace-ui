@@ -1,4 +1,4 @@
-import axiosListCoin from './AxiosApi';
+import axiosClient from './AxiosApi';
 
 interface paramsInterface {
   per_page?: Number;
@@ -9,27 +9,27 @@ interface paramsInterface {
 const CryptoApi = {
   getAll(params: paramsInterface) {
     const url = '/';
-    return axiosListCoin.get(url, { params });
+    return axiosClient.get(url, { params });
   },
 
   get(params: paramsInterface) {
     const url = '';
-    return axiosListCoin.get(url, { params });
+    return axiosClient.get(url, { params });
   },
 
   add(data: paramsInterface) {
     const url = `/`;
-    return axiosListCoin.post(url, data);
+    return axiosClient.post(url, data);
   },
 
   update(data: any) {
     const url = `/${data.id}`;
-    return axiosListCoin.post(url, data);
+    return axiosClient.post(url, data);
   },
 
   remove(id: paramsInterface) {
     const url = `/${id}`;
-    return axiosListCoin.delete(url);
+    return axiosClient.delete(url);
   },
 };
 
