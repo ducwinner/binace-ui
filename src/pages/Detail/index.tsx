@@ -12,7 +12,7 @@ import ConvertPrice from '../../GlobalFunction/ConvertPrice';
 import { useDispatch } from 'react-redux';
 import { fethchCoinID, fethchLstCoinMKC } from '../../Redux/CoinApiSlice';
 
-import TradeViewChart from 'react-crypto-chart';
+// import TradeViewChart from 'react-crypto-chart';
 
 var img: string;
 var name: string;

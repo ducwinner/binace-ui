@@ -1,10 +1,7 @@
 import { Col, Row } from 'antd';
 import { useSelector } from 'react-redux';
-import classNames from 'classnames';
 import '../../../styles/Home/IntroDuceFortfolio.less';
 import ButtonPrimary from '../../../components/ButtonLink';
-
-const cx = classNames;
 
 function IntroduceFortfolio() {
   const { text, textBlurPrimary } = useSelector((state: any) => state.theme.colors);

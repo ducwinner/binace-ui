@@ -5,9 +5,7 @@ import { useSelector } from 'react-redux';
 // ...
 
 function Footer() {
-  const { backGroudPrimary, text, textBlurPrimary } = useSelector(
-    (state: any) => state.theme.colors
-  );
+  const { backGroudPrimary, text } = useSelector((state: any) => state.theme.colors);
   return (
     <div
       style={{

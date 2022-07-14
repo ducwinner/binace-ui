@@ -38,9 +38,7 @@ interface TableCoinFortFolioInterFace {
 
 function TableCoinFortFolio({ lstValue, lstCoinUser }: TableCoinFortFolioInterFace) {
   // REDUX
-  const { text, textBlurPrimary, priceUp, priceDown } = useSelector(
-    (state: any) => state.theme.colors
-  );
+  const { text, priceUp, priceDown } = useSelector((state: any) => state.theme.colors);
 
   const darkMode = useSelector((state: any) => state.theme.darkMode);
   const dataUser: DataInterFace[] = useSelector((state: any) => state.fortfolio.data);

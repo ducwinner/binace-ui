@@ -1,4 +1,3 @@
-import { current } from '@reduxjs/toolkit';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
 import { useSelector } from 'react-redux';
@@ -21,15 +20,7 @@ interface pricChangeInterface {
 
 function TablePriceChange({ day1, day7, day30, ath, price }: pricChangeInterface) {
   //Theme
-  const {
-    text,
-    backGroudSP,
-    textBlurTitle,
-    backGroudPrimary,
-    textBlurPrimary,
-    priceUp,
-    priceDown,
-  } = useSelector((state: any) => state.theme.colors);
+  const { text, priceUp, priceDown } = useSelector((state: any) => state.theme.colors);
 
   const darkMode = useSelector((state: any) => state.theme.darkMode);
   //

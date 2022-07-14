@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from 'react';
 import { Input, Select, Tabs } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
 import TableListCoin from '../../../components/TableListCoin';
-import { dataCoinsFollow } from '../../../Data/CoinFollow';
 import { useSelector } from 'react-redux';
 
 const { TabPane } = Tabs;
