@@ -122,6 +122,7 @@ function TableListCoin({ dataCoin, TableType }: TableListCoinInterFace) {
         columns={columns}
         dataSource={data}
         pagination={{ pageSize: 15, position: ['topRight'] }}
+        scroll={{ x: 830 }}
       />
     </div>
   );

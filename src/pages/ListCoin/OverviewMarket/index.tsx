@@ -40,17 +40,17 @@ function OverviewMarket({
           </div>
         </div>
         <div className="wrapper">
-          <Row gutter={[56, 24]}>
-            <Col span={6}>
+          <Row gutter={[{ md: 24, xl: 56 }, 24]} style={{ marginLeft: '0' }}>
+            <Col lg={6}>
               <TableOverView listCoin={HightLightCoin} describe="HightLight Coin" />
             </Col>
-            <Col span={6}>
+            <Col lg={6}>
               <TableOverView listCoin={CoinNew} describe="New Listing" />
             </Col>
-            <Col span={6}>
+            <Col lg={6}>
               <TableOverView listCoin={CoinHightMkC} describe="Top Market Cap" />
             </Col>
-            <Col span={6}>
+            <Col lg={6}>
               <TableOverView listCoin={CoinHightVolume} describe="Top Volume Coin" />
             </Col>
           </Row>

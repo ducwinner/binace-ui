@@ -1,14 +1,21 @@
 import { Col, Row } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../../styles//Login.less';
 
 function Register() {
+  //Redux
+  const { backGroudPrimary, textPrimary, text, textBlurPrimary, backGroudSP } = useSelector(
+    (state: any) => state.theme.colors
+  );
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
+
   const [typeLogin, setTypeLogin] = useState<boolean>(true);
 
-  const onChangeTypeLogin = () => {
-    setTypeLogin(!typeLogin);
+  const onChangeTypeLogin = (e: any) => {
+    setTypeLogin(e);
   };
 
   const onFinish = (values: any) => {
@@ -19,20 +26,30 @@ function Register() {
     console.log('Failed:', errorInfo);
   };
   return (
-    <div>
-      <div className="loginInner">
+    <div style={{ height: '100%' }}>
+      <div style={{ backgroundColor: backGroudPrimary }} className="loginInner">
         <Row>
           <Col span={4}></Col>
           <Col span={16}>
-            <div className="loginInnerHeader">Binance Account Login</div>
+            <div style={{ color: text }} className="loginInnerHeader">
+              Binance Account Login
+            </div>
             <Row>
               <Col span={12}>
-                <div className="formLogin">
+                <div className={darkMode ? 'darkMode formLogin' : 'formLogin'}>
                   <div className="typeLogin">
-                    <div onClick={onChangeTypeLogin} className={typeLogin ? 'active' : ''}>
+                    <div
+                      style={{ color: text }}
+                      onClick={() => onChangeTypeLogin(true)}
+                      className={typeLogin ? 'active' : ''}
+                    >
                       Email
                     </div>
-                    <div onClick={onChangeTypeLogin} className={typeLogin ? '' : 'active'}>
+                    <div
+                      style={{ color: text }}
+                      onClick={() => onChangeTypeLogin(false)}
+                      className={typeLogin ? '' : 'active'}
+                    >
                       Phone Number
                     </div>
                   </div>
@@ -48,7 +65,7 @@ function Register() {
                       autoComplete="off"
                     >
                       <Form.Item
-                        label="Full Name"
+                        label={<div style={{ color: text }}>Full name</div>}
                         name="name"
                         rules={[
                           { required: true, message: 'Please input your Full Name ' },
@@ -62,7 +79,7 @@ function Register() {
                       {typeLogin ? (
                         <Form.Item
                           style={{ display: 'flex' }}
-                          label="Email"
+                          label={<div style={{ color: text }}>Email</div>}
                           name="Email"
                           rules={[
                             { required: true, message: 'Please input your Emai!' },
@@ -76,7 +93,7 @@ function Register() {
                         <Form.Item
                           hasFeedback
                           name="PhoneNumber"
-                          label="Phone Number"
+                          label={<div style={{ color: text }}>Phone number</div>}
                           style={{ display: 'flex' }}
                           rules={[
                             { required: true, message: 'Please input your phone Number!' },
@@ -92,7 +109,7 @@ function Register() {
                       <Form.Item
                         hasFeedback
                         style={{ display: 'flex' }}
-                        label="Password"
+                        label={<div style={{ color: text }}>Password</div>}
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                       >
@@ -102,7 +119,7 @@ function Register() {
                       <Form.Item
                         hasFeedback
                         style={{ display: 'flex' }}
-                        label="Confirm Password"
+                        label={<div style={{ color: text }}>ConfirmPassword</div>}
                         name="confirmPassword"
                         rules={[
                           { required: true, message: 'Please input your password!' },
@@ -126,7 +143,7 @@ function Register() {
                         valuePropName="checked"
                         rules={[{ required: true, message: 'You can agree' }]}
                       >
-                        <Checkbox>
+                        <Checkbox style={{ color: textBlurPrimary }}>
                           I have read and agree to <a href="/">Binance’s Terms</a> of{' '}
                           <a href="/">Service and Privacy Policy</a>.
                         </Checkbox>
@@ -164,8 +181,10 @@ function Register() {
                       alt="QR code"
                     />
                   </div>
-                  <div className="QR_content">Log in with QR code</div>
-                  <div className="QR_content2">
+                  <div style={{ color: text }} className="QR_content">
+                    Log in with QR code
+                  </div>
+                  <div style={{ color: textBlurPrimary }} className="QR_content2">
                     Scan this code with the <a href="/">Binance mobile app</a> to log in instantly.
                   </div>
                 </div>

@@ -10,7 +10,7 @@ function IntroduceFortfolio() {
     <div>
       <div className="introduce-Fortfolio">
         <Row>
-          <Col span={14}>
+          <Col md={{ span: 14, order: 1 }}>
             <div className="introduce-main">
               <div className="introduce-main-header">
                 <div style={{ color: text }} className="title">
@@ -69,8 +69,12 @@ function IntroduceFortfolio() {
             </div>
           </Col>
 
-          <Col span={10}>
+          <Col
+            md={{ span: 10, order: 2 }}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
             <img
+              style={{ width: '80%', minWidth: '250px', marginTop: '20px' }}
               src="https://coinstats.app/_next/static/images/mockupDark-13e8bd4fddd525a0df64928edd6cf499.png"
               alt="img"
             />

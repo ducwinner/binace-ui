@@ -1,42 +1,68 @@
 import { Col, Row } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import authAxios from '../../api/auth';
+import { login } from '../../Redux/authSlice';
 import '../../styles/Login.less';
 
 function Login() {
+  // Redux
+  const user = useSelector((state: any) => state.user.authUser);
+  const { backGroudPrimary, textPrimary, text, textBlurPrimary, backGroudSP } = useSelector(
+    (state: any) => state.theme.colors
+  );
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
+
+  const dispatch: any = useDispatch();
+
   const [typeLogin, setTypeLogin] = useState<boolean>(true);
 
-  const onChangeTypeLogin = () => {
-    setTypeLogin(!typeLogin);
+  const onChangeTypeLogin = (e: any) => {
+    setTypeLogin(e);
   };
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const onFinish = async (values: { email: string; password: string }) => {
+    console.log(values);
+    const duc = await dispatch(login(values));
   };
+
+  console.log(user);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
   return (
-    <div>
-      <div className="loginInner">
+    <div style={{ height: '100%' }}>
+      <div style={{ backgroundColor: backGroudPrimary }} className="loginInner">
         <Row>
           <Col span={4}></Col>
           <Col span={16}>
-            <div className="loginInnerHeader">Binance Account Login</div>
+            <div style={{ color: text }} className="loginInnerHeader">
+              Binance Account Login
+            </div>
             <Row>
               <Col span={12}>
-                <div className="formLogin">
+                <div className={darkMode ? 'darkMode formLogin' : 'formLogin'}>
                   <div className="typeLogin">
-                    <div onClick={onChangeTypeLogin} className={typeLogin ? 'active' : ''}>
+                    <div
+                      style={{ color: text }}
+                      onClick={() => onChangeTypeLogin(true)}
+                      className={typeLogin ? 'active' : ''}
+                    >
                       Email
                     </div>
-                    <div onClick={onChangeTypeLogin} className={typeLogin ? '' : 'active'}>
+                    <div
+                      style={{ color: text }}
+                      onClick={() => onChangeTypeLogin(false)}
+                      className={typeLogin ? '' : 'active'}
+                    >
                       Phone Number
                     </div>
                   </div>
-                  <div className="formForm">
+                  <div className={'formForm'}>
                     <Form
                       layout="vertical"
                       name="basic"
@@ -49,9 +75,9 @@ function Login() {
                     >
                       {typeLogin ? (
                         <Form.Item
-                          style={{ display: 'flex' }}
-                          label="Email"
-                          name="Email"
+                          style={{ display: 'flex', color: text }}
+                          label={<div style={{ color: text }}>Email</div>}
+                          name="email"
                           rules={[
                             { required: true, message: 'Please input your Emai!' },
                             { type: 'email', message: 'error! xd: abc123@gmail.com' },
@@ -64,8 +90,8 @@ function Login() {
                         <Form.Item
                           hasFeedback
                           name="PhoneNumber"
-                          label="Phone Number"
-                          style={{ display: 'flex' }}
+                          label={<div style={{ color: text, width: '110px' }}>Phone Number</div>}
+                          style={{ display: 'flex', color: text }}
                           rules={[
                             { required: true, message: 'Please input your phone Number!' },
                             { type: 'number' },
@@ -80,16 +106,16 @@ function Login() {
                       <Form.Item
                         hasFeedback
                         style={{ display: 'flex' }}
-                        label="Password"
+                        label={<div style={{ color: text }}>Password</div>}
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                       >
                         <Input.Password />
                       </Form.Item>
 
-                      <Form.Item name="remember" valuePropName="checked">
+                      {/* <Form.Item name="remember" valuePropName="checked">
                         <Checkbox>Remember me</Checkbox>
-                      </Form.Item>
+                      </Form.Item> */}
 
                       <Form.Item style={{ width: '100%' }} noStyle={true}>
                         <Button
@@ -123,8 +149,10 @@ function Login() {
                       alt="QR code"
                     />
                   </div>
-                  <div className="QR_content">Log in with QR code</div>
-                  <div className="QR_content2">
+                  <div style={{ color: textBlurPrimary }} className="QR_content">
+                    Log in with QR code
+                  </div>
+                  <div style={{ color: textBlurPrimary }} className="QR_content2">
                     Scan this code with the <a href="/">Binance mobile app</a> to log in instantly.
                   </div>
                 </div>

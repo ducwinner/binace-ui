@@ -59,7 +59,6 @@ const initialState: InitialStateInterFace = {
         quantity: 300,
         priceInput: 4.3,
       },
-
     ],
 }
 

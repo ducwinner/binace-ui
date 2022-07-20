@@ -198,6 +198,7 @@ function TableCoinFortFolio({ lstValue, lstCoinUser }: TableCoinFortFolioInterFa
         className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}
         columns={columns}
         dataSource={data}
+        scroll={{ x: 830 }}
       />
     </div>
   );

@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Input, Select, Tabs } from 'antd';
-import { StarOutlined } from '@ant-design/icons';
+import { StarOutlined, SearchOutlined } from '@ant-design/icons';
 import TableListCoin from '../../../components/TableListCoin';
 import { useSelector } from 'react-redux';
+import useWindowSize from '../../../CustomHook/useWindowSize';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -13,9 +14,12 @@ interface ListCoinTableInterFace {
 
 function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
   // Redux
-  const { backGroudPrimary, textBlurPrimary, textPrimary } = useSelector(
+  const { text, backGroudPrimary, textBlurPrimary, textPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
+
+  const sizeWindow = useWindowSize();
+
   const darkMode = useSelector((state: any) => state.theme.darkMode);
 
   const listCoinFollow = useSelector((state: any) => state.coinFollow);
@@ -24,6 +28,7 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
   const [reRender, setReRender] = useState(true);
   const [dataSearch, setDateSearch] = useState<any[]>([]);
   const [stateSearch, setStateSearch] = useState<string>('Name');
+  const [iconSearch, setIconSearch] = useState<boolean>(false);
 
   // Function State
   const onChange = (key: string) => {
@@ -50,6 +55,23 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
   const dataFortFolio = listCoinFollow.map(
     (name: string) => dataCoinMKC.filter((e: any) => e.id === name)[0]
   );
+
+  const onSearchClick = () => {
+    console.log(iconSearch);
+    setIconSearch(true);
+    console.log(iconSearch);
+  };
+
+  useEffect(() => {
+    if (sizeWindow.width < 768) {
+      setIconSearch(true);
+    }
+    if (sizeWindow.width > 768) {
+      setIconSearch(false);
+    }
+  }, [sizeWindow]);
+
+  console.log(iconSearch);
 
   return (
     <div
@@ -125,30 +147,37 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
             </Tabs>
           </TabPane>
         </Tabs>
-        <Input.Group
-          style={{ backgroundColor: backGroudPrimary }}
-          size="large"
-          compact
-          className="inputSearch"
-        >
-          <Select
-            onChange={onSelectChange}
-            style={{ width: '100px' }}
+        {iconSearch ? (
+          <div className="icon-search" onClick={onSearchClick}>
+            <SearchOutlined color={text} className="icon" sizes={'3.2rem'} />
+            Search
+          </div>
+        ) : (
+          <Input.Group
+            style={{ backgroundColor: backGroudPrimary }}
             size="large"
-            defaultValue="Name"
-            className={darkMode ? 'darkMode' : ''}
+            compact
+            className="inputSearch"
           >
-            <Option value="Name">Name</Option>
-            <Option value="Symbol">Symbol</Option>
-          </Select>
-          <Input
-            style={{ backgroundColor: backGroudPrimary, color: textPrimary }}
-            maxLength={8}
-            size="large"
-            onChange={onSearchChange}
-            placeholder={'Tìm kiếm đồng coin'}
-          ></Input>
-        </Input.Group>
+            <Select
+              onChange={onSelectChange}
+              style={{ width: '100px' }}
+              size="large"
+              defaultValue="Name"
+              className={darkMode ? 'darkMode' : ''}
+            >
+              <Option value="Name">Name</Option>
+              <Option value="Symbol">Symbol</Option>
+            </Select>
+            <Input
+              style={{ backgroundColor: backGroudPrimary, color: textPrimary }}
+              maxLength={8}
+              size="large"
+              onChange={onSearchChange}
+              placeholder={'Tìm kiếm đồng coin'}
+            ></Input>
+          </Input.Group>
+        )}
       </div>
     </div>
   );

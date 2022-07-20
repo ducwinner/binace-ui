@@ -9,19 +9,30 @@ import {
   CreditCardOutlined,
   UserSwitchOutlined,
   ArrowRightOutlined,
+  MenuFoldOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { v4 as uuidv4 } from 'uuid';
 import type { MenuProps } from 'antd';
 import { Select } from 'antd';
 import { useDispatch } from 'react-redux';
+import useWindowSize from '../../../CustomHook/useWindowSize';
 const { Option } = Select;
 
 function Header() {
   const [theme, setTheme] = useState<MenuTheme>('light');
   const [current, setCurrent] = useState('mail');
+  const [trigger, setTrigger] = useState<any>('hover');
+  const sizeWinDow = useWindowSize();
+
+  // if (sizeWinDow < 820) {
+  //   setTrigger('click');
+  // } else {
+  //   setTrigger('hover');
+  // }
+  console.log(sizeWinDow);
 
   //Redux theme
   const dispatch = useDispatch();
@@ -248,11 +259,11 @@ function Header() {
       key: uuidv4(),
     },
 
-    {
-      label: 'NFT',
-      popupClassName: 'headerSubMenu',
-      key: uuidv4(),
-    },
+    // {
+    //   label: 'NFT',
+    //   popupClassName: 'headerSubMenu',
+    //   key: uuidv4(),
+    // },
     {
       label: <Link to="/detail/bitcoin">Cryptocurrency Detail</Link>,
       popupClassName: 'headerSubMenu',
@@ -261,6 +272,12 @@ function Header() {
     {
       label: <Link to="/fortfolio">My FortFolio</Link>,
       popupClassName: 'headerSubMenu',
+      key: uuidv4(),
+    },
+    {
+      label: <div style={{ width: '300px' }}></div>,
+      popupClassName: 'headerSubMenu',
+      disabled: true,
       key: uuidv4(),
     },
     {
@@ -294,7 +311,7 @@ function Header() {
   ];
 
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <Menu
         style={{ height: '64px', alignItems: 'center' }}
         theme={theme}
@@ -303,6 +320,8 @@ function Header() {
         mode="horizontal"
         items={Submenus}
         className={'headerMenu'}
+        overflowedIndicator={<MenuFoldOutlined style={{ fontSize: '2rem' }} />}
+        triggerSubMenuAction={sizeWinDow.width < 820 ? 'click' : 'hover'}
       />
     </div>
   );

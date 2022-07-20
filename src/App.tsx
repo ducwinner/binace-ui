@@ -5,7 +5,7 @@ import { DefaultLayout } from './Layout';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App" style={{ height: '100%' }}>
         <Routes>
           {publicRouter.map((route, index) => {
             let Layout: any = DefaultLayout;

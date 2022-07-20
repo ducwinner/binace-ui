@@ -5,11 +5,21 @@ import React, { useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { v4 as uuidv4 } from 'uuid';
 import type { MenuProps } from 'antd';
+import { useDispatch } from 'react-redux';
+import { setDarkTheme, setDefaultTheme } from '../../../Redux/themeSlice';
 
 function Header() {
-  const [theme, setTheme] = useState<MenuTheme>('dark');
+  //Redux theme
+  const dispatch = useDispatch();
+
+  const [theme, setTheme] = useState<MenuTheme>('light');
   const [current, setCurrent] = useState('mail');
   const changeTheme = (value: boolean) => {
+    if (theme === 'light') {
+      dispatch(setDarkTheme());
+    } else {
+      dispatch(setDefaultTheme());
+    }
     setTheme(value ? 'dark' : 'light');
   };
 

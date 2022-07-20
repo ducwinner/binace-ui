@@ -19,7 +19,7 @@ function Footer() {
       <div className="FooterInner">
         <div className="FooterInnerTop">
           <Row>
-            <Col span={4} className="colFooter">
+            <Col xs={12} sm={8} md={6} xl={4} className="colFooter">
               <div style={{ color: text }}>About Us</div>
               <div>Careers</div>
               <div>Business Contacts</div>
@@ -33,7 +33,7 @@ function Footer() {
               <div>Notices </div>
               <div>Cookie Preferences</div>
             </Col>
-            <Col span={4} className="colFooter">
+            <Col xs={12} sm={8} md={6} xl={4} className="colFooter">
               <div style={{ color: text }}>Products</div>
               <div>Exchange</div>
               <div>Academy</div>
@@ -47,7 +47,7 @@ function Footer() {
               <div>Research </div>
               <div>Binance Pay</div>
             </Col>
-            <Col span={4} className="colFooter">
+            <Col xs={12} sm={8} md={6} xl={4} className="colFooter">
               <div style={{ color: text }}>Service</div>
               <div>Downloads</div>
               <div>Desktop Application</div>
@@ -61,7 +61,7 @@ function Footer() {
               <div>Research </div>
               <div>Binance Pay</div>
             </Col>
-            <Col span={4} className="colFooter">
+            <Col xs={12} sm={8} md={6} xl={4} className="colFooter">
               <div style={{ color: text }}>Give Us Feedback</div>
               <div>Support Center</div>
               <div>Submit a request</div>
@@ -71,7 +71,7 @@ function Footer() {
               <div>Binance Verify</div>
               <div>Law Enforcement Requests</div>
             </Col>
-            <Col span={4} className="colFooter">
+            <Col xs={12} sm={8} md={6} xl={4} className="colFooter">
               <div style={{ color: text }}>Learn</div>
               <div>Learn &dollar; Earn</div>
               <div>Browse Crypto Prices</div>
@@ -86,7 +86,7 @@ function Footer() {
               <div>Buy SHIB Buy</div>
               <div>Tradable Altcoins</div>
             </Col>
-            <Col span={4} className="colFooter">
+            <Col xs={12} sm={8} md={6} xl={4} className="colFooter">
               <div style={{ color: text }}>Community</div>
               <Row>
                 <Col span={8}>

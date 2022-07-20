@@ -25,11 +25,11 @@ function TablePriceChange({ day1, day7, day30, ath, price }: pricChangeInterface
   const darkMode = useSelector((state: any) => state.theme.darkMode);
   //
   const changeYear = price - ath;
-  const percentChangeYear = ((changeYear * 100) / ath).toFixed(2);
+  const percentChangeYear = (changeYear * 100) / ath;
 
-  const percent1 = (day1 * price).toFixed(2);
-  const percent7 = (day7 * price).toFixed(2);
-  const percent30 = (day30 * price).toFixed(2);
+  const percent1 = (day1 * price) / 100;
+  const percent7 = (day7 * price) / 100;
+  const percent30 = (day30 * price) / 100;
 
   const columns: ColumnsType<DataType> = [
     {
@@ -58,26 +58,26 @@ function TablePriceChange({ day1, day7, day30, ath, price }: pricChangeInterface
     {
       key: '1',
       change: 'To Day',
-      amount: percent1,
-      percent: day1,
+      amount: percent1?.toFixed(2),
+      percent: day1?.toFixed(2),
     },
     {
       key: '2',
       change: '7 Day',
-      amount: percent7,
-      percent: day7,
+      amount: percent7?.toFixed(2),
+      percent: day7?.toFixed(2),
     },
     {
       key: '3',
       change: '30 Day',
-      amount: percent30,
-      percent: day30,
+      amount: percent30?.toFixed(2),
+      percent: day30?.toFixed(2),
     },
     {
       key: '4',
       change: '1 Year',
-      amount: changeYear,
-      percent: percentChangeYear,
+      amount: changeYear?.toFixed(2),
+      percent: percentChangeYear?.toFixed(2),
     },
   ];
   return (

@@ -9,12 +9,12 @@ function NeedHelp() {
 
   return (
     <div className="need-help">
-      <div style={{ fontSize: '4rem', color: text }} className="help-header">
+      <div style={{ color: text }} className="help-header">
         Need help?
       </div>
       <div className="help-container">
         <Row>
-          <Col span={8} style={{ display: 'flex' }}>
+          <Col sm={12} md={8} style={{ display: 'flex' }}>
             <div>
               <img src="https://img.icons8.com/ios-glyphs/60/000000/supplier.png" alt="img" />
             </div>
@@ -30,7 +30,7 @@ function NeedHelp() {
               </div>
             </div>
           </Col>
-          <Col span={8} style={{ display: 'flex' }}>
+          <Col sm={12} md={8} style={{ display: 'flex' }}>
             <div>
               <img
                 src="https://img.icons8.com/ios-glyphs/60/000000/speech-bubble-with-dots.png"
@@ -49,7 +49,7 @@ function NeedHelp() {
               </div>
             </div>
           </Col>
-          <Col span={8} style={{ display: 'flex' }}>
+          <Col sm={12} md={8} style={{ display: 'flex' }}>
             <div>
               <img src="https://img.icons8.com/ios-glyphs/60/000000/page-setup.png" alt="blog" />
             </div>

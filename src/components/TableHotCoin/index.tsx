@@ -79,9 +79,9 @@ function TableHotCoin({ dataCoin }: TableHotCoinInterFace) {
   });
 
   return (
-    <div className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}>
-      <Table columns={columns} dataSource={data}></Table>
-    </div>
+    // <div className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}>
+    <Table columns={columns} dataSource={data} size="middle" scroll={{ x: 754 }} />
+    // </div>
   );
 }
 

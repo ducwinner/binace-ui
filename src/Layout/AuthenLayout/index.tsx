@@ -3,9 +3,9 @@ import Header from './HeaderAuthen';
 
 function AuthenLayout({ children }: any): ReactNode {
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header />
-      <div className="contentAuthen" style={{ marginBottom: '30px' }}>
+      <div className="contentAuthen" style={{ paddingBottom: '30px', height: '100%' }}>
         {children}
       </div>
     </div>

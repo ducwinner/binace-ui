@@ -20,19 +20,19 @@ function PossibilitiesBinace() {
           </div>
         </div>
         <div style={{ color: textBlurPrimary }} className="possibilities-header-right">
-          More download options &nbsp; <RightOutlined />
+          More &nbsp; <RightOutlined />
         </div>
       </div>
       <div className="possibilities-main">
         <Row>
-          <Col span={12}>
+          <Col sm={12}>
             <img
               className="main-img"
               src="https://cryptopro.app/wp-content/uploads/2020/08/crypto-pro-app-ios-ipados-watchos-macos.png"
               alt="img"
             />
           </Col>
-          <Col span={12}>
+          <Col sm={12}>
             <div className="possibilities-main-left">
               <div style={{ backgroundColor: backGroudSP }} className="header">
                 <img

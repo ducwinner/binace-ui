@@ -17,13 +17,13 @@ import { fethchCoinID, fethchLstCoinMKC } from '../../Redux/CoinApiSlice';
 var img: string;
 var name: string;
 var symbol: string;
-var priceCurrent: any;
-var ath: any;
-var priceChange1h: any;
-var priceChange24h: any;
-var priceChange7d: any;
-var priceChange30d: any;
-var rank: any;
+var priceCurrent: number;
+var ath: number;
+var priceChange1h: number;
+var priceChange24h: number;
+var priceChange7d: number;
+var priceChange30d: number;
+var rank: number;
 var mkc: any;
 var CirculationSupply: any;
 var totalVolum: any;
@@ -63,13 +63,13 @@ function CoinDetail() {
     img = currentCoin.image;
     name = currentCoin.name;
     symbol = currentCoin.symbol?.toUpperCase();
-    priceCurrent = currentCoin.current_price?.toLocaleString();
-    priceChange1h = currentCoin.price_change_percentage_1h_in_currency.toFixed(2);
-    priceChange24h = currentCoin.price_change_percentage_24h_in_currency.toFixed(2);
-    priceChange7d = currentCoin.price_change_percentage_7d_in_currency.toFixed(2);
-    priceChange30d = currentCoin.price_change_percentage_30d_in_currency.toFixed(2);
+    priceCurrent = currentCoin.current_price;
+    priceChange1h = currentCoin.price_change_percentage_1h_in_currency;
+    priceChange24h = currentCoin.price_change_percentage_24h_in_currency;
+    priceChange7d = currentCoin.price_change_percentage_7d_in_currency;
+    priceChange30d = currentCoin.price_change_percentage_30d_in_currency;
 
-    ath = currentCoin.ath.toLocaleString();
+    ath = currentCoin.ath;
     rank = ConvertPrice(currentCoin.market_cap_rank);
     mkc = ConvertPrice(currentCoin.market_cap);
     CirculationSupply = ConvertPrice(currentCoin.circulating_supply);
@@ -103,9 +103,9 @@ function CoinDetail() {
           <Row gutter={[56, 0]}>
             <Col span={14} className="coin-detail-left">
               <div style={{ color: text }} className="price-header">
-                $ &nbsp; {priceCurrent} &nbsp;
+                $ &nbsp; {priceCurrent?.toLocaleString()} &nbsp;
                 <span style={{ color: priceChange24h > 0 ? priceUp : priceDown }}>
-                  {priceChange24h} %
+                  {priceChange24h?.toFixed(2)} %
                 </span>
                 <span style={{ color: textBlurPrimary, fontSize: '1.2rem' }} className="time">
                   &nbsp; (1day)
@@ -161,13 +161,15 @@ function CoinDetail() {
                 ath={ath}
                 price={priceCurrent}
               />
+
               <div className="price-live-data">
                 <div style={{ color: text }}>{symbol} Price Live Data</div>
                 <div style={{ color: textBlurTitle }} className="descrine">
-                  The live price of {symbol} is $ {priceCurrent} per ({symbol} / USD) today with a
-                  current market cap of $ {mkc}. 24-hour trading volume is $ {totalVolum} USD.{' '}
-                  {symbol} to USD price is updated in real-time. {symbol} is {priceChange24h} in the
-                  last 24 hours. It has a circulating supply of $ {CirculationSupply} USD.
+                  The live price of {symbol} is $ {priceCurrent?.toLocaleString()} per ({symbol} /
+                  USD) today with a current market cap of $ {mkc}. 24-hour trading volume is ${' '}
+                  {totalVolum} USD. {symbol} to USD price is updated in real-time. {symbol} is{' '}
+                  {priceChange24h?.toFixed(2)} in the last 24 hours. It has a circulating supply of
+                  $ {CirculationSupply} USD.
                 </div>
               </div>
               <div className="price-infomation">
@@ -181,7 +183,7 @@ function CoinDetail() {
                         All Time High &nbsp; <WarningOutlined />
                       </div>
                       <div style={{ color: text }} className="bot">
-                        $ &nbsp; {ath}
+                        $ &nbsp; {ath?.toLocaleString()}
                       </div>
                     </Col>
                     <Col span={6}>
@@ -192,7 +194,7 @@ function CoinDetail() {
                         style={{ color: priceChange1h > 0 ? priceUp : priceDown }}
                         className={' bot'}
                       >
-                        &nbsp;{priceChange1h}%
+                        &nbsp;{priceChange1h?.toFixed(2)}%
                       </div>
                     </Col>
                     <Col span={6}>
@@ -203,7 +205,7 @@ function CoinDetail() {
                         style={{ color: priceChange24h > 0 ? priceUp : priceDown }}
                         className="bot"
                       >
-                        &nbsp;{priceChange24h}%
+                        &nbsp;{priceChange24h?.toFixed(2)}%
                       </div>
                     </Col>
                     <Col span={6}>
@@ -214,7 +216,7 @@ function CoinDetail() {
                         style={{ color: priceChange7d > 0 ? priceUp : priceDown }}
                         className="bot"
                       >
-                        &nbsp;{priceChange7d}%
+                        &nbsp;{priceChange7d?.toFixed(2)}%
                       </div>
                     </Col>
                   </Row>
@@ -303,7 +305,7 @@ function CoinDetail() {
                   <div>Price</div>
                   <div>
                     USD $ &nbsp;
-                    {!inputPrice ? '0.00' : (inputPrice * priceCurrent)?.toFixed(2)}
+                    {!inputPrice ? '0.00' : (inputPrice * priceCurrent)?.toFixed(0)}
                   </div>
                 </div>
                 <ButtonLink width="100%" title="Buy BTC" path="/" />
