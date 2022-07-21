@@ -160,6 +160,7 @@ function FortFolio() {
                   <img
                     style={{ width: '25px', transform: 'translateY(-2px)' }}
                     src={suitcaseImng}
+                    alt="img"
                   />
                 </span>
                 &nbsp; Fortfolio
@@ -179,6 +180,7 @@ function FortFolio() {
                       <img
                         style={{ width: '25px', transform: 'translateY(-2px)' }}
                         src={darkMode ? darkHeartGIF : lighHeartGIF}
+                        alt="img"
                       />
                     </span>
                     &nbsp; My coin

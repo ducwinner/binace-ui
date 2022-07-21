@@ -31,23 +31,6 @@ function OverviewMarket({
     setTypeList(value.value);
   };
 
-  const choseTypeList = (type: string) => {
-    switch (type) {
-      case '1':
-        <TableOverView listCoin={HightLightCoin} describe="HightLight Coin" />;
-        break;
-      case '2':
-        <TableOverView listCoin={CoinNew} describe="New Listing" />;
-        break;
-      case '3':
-        <TableOverView listCoin={CoinHightMkC} describe="Top Market Cap" />;
-        break;
-      case '3':
-        <TableOverView listCoin={CoinHightVolume} describe="Top Volume Coin" />;
-        break;
-      default:
-    }
-  };
   //
   return (
     <div

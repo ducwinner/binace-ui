@@ -1,22 +1,21 @@
 import { Col, Row } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import authAxios from '../../api/auth';
-import { login } from '../../Redux/authSlice';
+// import { login } from '../../Redux/authSlice';
 import '../../styles/Login.less';
 
 function Login() {
   // Redux
-  const user = useSelector((state: any) => state.user.authUser);
-  const { backGroudPrimary, textPrimary, text, textBlurPrimary, backGroudSP } = useSelector(
+  // const user = useSelector((state: any) => state.user.authUser);
+  const { backGroudPrimary, text, textBlurPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
   const darkMode = useSelector((state: any) => state.theme.darkMode);
 
-  const dispatch: any = useDispatch();
+  // const dispatch: any = useDispatch();
 
   const [typeLogin, setTypeLogin] = useState<boolean>(true);
 
@@ -24,12 +23,12 @@ function Login() {
     setTypeLogin(e);
   };
 
-  const onFinish = async (values: { email: string; password: string }) => {
-    console.log(values);
-    const duc = await dispatch(login(values));
-  };
+  // const onFinish = async (values: { email: string; password: string }) => {
+  //   console.log(values);
+  //   const duc = await dispatch(login(values));
+  // };
 
-  console.log(user);
+  // console.log(user);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -113,9 +112,9 @@ function Login() {
                         <Input.Password />
                       </Form.Item>
 
-                      {/* <Form.Item name="remember" valuePropName="checked">
+                      <Form.Item name="remember" valuePropName="checked">
                         <Checkbox>Remember me</Checkbox>
-                      </Form.Item> */}
+                      </Form.Item>
 
                       <Form.Item style={{ width: '100%' }} noStyle={true}>
                         <Button

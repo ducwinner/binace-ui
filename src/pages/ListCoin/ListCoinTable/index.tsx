@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Input, Select, Tabs } from 'antd';
-import { StarOutlined, SearchOutlined } from '@ant-design/icons';
+import { StarOutlined } from '@ant-design/icons';
 import TableListCoin from '../../../components/TableListCoin';
 import { useSelector } from 'react-redux';
 import useWindowSize from '../../../CustomHook/useWindowSize';
@@ -14,7 +14,7 @@ interface ListCoinTableInterFace {
 
 function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
   // Redux
-  const { text, backGroudPrimary, textBlurPrimary, textPrimary } = useSelector(
+  const { backGroudPrimary, textBlurPrimary, textPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
 
@@ -55,10 +55,6 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
   const dataFortFolio = listCoinFollow.map(
     (name: string) => dataCoinMKC.filter((e: any) => e.id === name)[0]
   );
-
-  const onSearchClick = () => {
-    setIconSearch(true);
-  };
 
   useEffect(() => {
     if (sizeWindow.width < 768) {

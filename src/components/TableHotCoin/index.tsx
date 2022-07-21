@@ -23,8 +23,6 @@ interface DataType {
 }
 
 function TableHotCoin({ dataCoin }: TableHotCoinInterFace) {
-  const darkMode = useSelector((state: any) => state.theme.darkMode);
-
   const columns: ColumnsType<DataType> = [
     {
       title: 'Name',

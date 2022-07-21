@@ -1,6 +1,6 @@
 import { Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 import { StarOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { dataCoinsFollow } from '../../Data/CoinFollow';
@@ -33,7 +33,6 @@ interface TableListCoinInterFace {
 
 function TableListCoin({ dataCoin, TableType }: TableListCoinInterFace) {
   const size = useWindowSize();
-  const [responsive, setResponsive] = useState<boolean>(false);
   // Redux Theme
   const { priceUp, priceDown } = useSelector((state: any) => state.theme.colors);
   const darkMode = useSelector((state: any) => state.theme.darkMode);

@@ -12,7 +12,7 @@ import {
   MenuFoldOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { v4 as uuidv4 } from 'uuid';
 import type { MenuProps } from 'antd';
@@ -24,7 +24,6 @@ const { Option } = Select;
 function Header() {
   const [theme, setTheme] = useState<MenuTheme>('light');
   const [current, setCurrent] = useState('mail');
-  const [trigger, setTrigger] = useState<any>('hover');
   const sizeWinDow = useWindowSize();
 
   // if (sizeWinDow < 820) {
