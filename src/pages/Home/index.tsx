@@ -34,11 +34,12 @@ function Home() {
           display: 'flex',
           justifyContent: 'center',
           backgroundColor: backGroudSP,
+          padding: '0 20px',
         }}
       >
         <Overview />
       </div>
-      <div style={{ width: '1200px', maxWidth: '100%' }}>
+      <div style={{ width: '1200px', maxWidth: '100%', padding: '0 20px' }}>
         <Popular />
         <IntroduceFortfolio />
         <PossibilitiesBinace />

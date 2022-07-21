@@ -73,7 +73,118 @@ function Header() {
       key: uuidv4(),
     },
     {
-      label: 'Mua Crypto',
+      label: <Link to="/market">Market</Link>,
+      popupClassName: 'headerSubMenu',
+      key: uuidv4(),
+    },
+
+    // {
+    //   label: 'NFT',
+    //   popupClassName: 'headerSubMenu',
+    //   key: uuidv4(),
+    // },
+    {
+      label: <Link to="/detail/bitcoin">Cryptocurrency Detail</Link>,
+      popupClassName: 'headerSubMenu',
+      key: uuidv4(),
+    },
+    {
+      label: <Link to="/fortfolio">My FortFolio</Link>,
+      popupClassName: 'headerSubMenu',
+      key: uuidv4(),
+    },
+    {
+      label: 'Trade',
+      popupClassName: 'headerSubMenu',
+      key: uuidv4(),
+      icon: (
+        <SwapOutlined
+          style={{ color: 'rgb(252, 213, 53)', fontSize: '1.6rem', transform: 'translateY(1px)' }}
+        />
+      ),
+      children: [
+        {
+          key: uuidv4(),
+          type: 'group',
+          children: [
+            {
+              label: (
+                <div className={'headerSubMenuItem'}>
+                  <div className="title">
+                    Binance Convert &nbsp;
+                    <span className="hot">Hot</span>
+                  </div>
+                  <div className="describe">Cách đơn giản nhất để giao dịch</div>
+                  <ArrowRightOutlined className="icon" />
+                </div>
+              ),
+              icon: <BankOutlined />,
+              key: uuidv4(),
+            },
+            {
+              label: (
+                <div className={'headerSubMenuItem'}>
+                  <div className="title">Binance OTC</div>
+                  <div className="describe">OTC liquidity and execution services</div>
+                  <ArrowRightOutlined className="icon" />
+                </div>
+              ),
+              icon: <CreditCardOutlined />,
+              key: uuidv4(),
+            },
+            {
+              label: (
+                <div className={'headerSubMenuItem'}>
+                  <div className="title">Spot</div>
+                  <div className="describe">Giao dịch tiền mã hóa bằng các công cụ nâng cao</div>
+                  <ArrowRightOutlined className="icon" />
+                </div>
+              ),
+              icon: <BankOutlined />,
+              key: uuidv4(),
+            },
+            {
+              label: (
+                <div className={'headerSubMenuItem'}>
+                  <div className="title">
+                    Ký quỹ &nbsp;
+                    <span className="hot">Hot</span>
+                  </div>
+                  <div className="describe">Tối đa lợi nhuận bằng đòn bẩy cao</div>
+                  <ArrowRightOutlined className="icon" />
+                </div>
+              ),
+              icon: <UserSwitchOutlined />,
+              key: uuidv4(),
+            },
+            {
+              label: (
+                <div className={'headerSubMenuItem'}>
+                  <div className="title">Swap Farming &nbsp; </div>
+                  <div className="describe">Swap để tích luỹ BNB</div>
+                  <ArrowRightOutlined className="icon" />
+                </div>
+              ),
+              icon: <UserSwitchOutlined />,
+              key: uuidv4(),
+            },
+            {
+              label: (
+                <div className={'headerSubMenuItem'}>
+                  <div className="title">Chiến lược Giao dịch &nbsp;</div>
+                  <div className="describe">Giao dịch dễ dàng, giao dịch chuyên nghiệp</div>
+                  <ArrowRightOutlined className="icon" />
+                </div>
+              ),
+              icon: <UserSwitchOutlined />,
+              key: uuidv4(),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: <span>Buy Crypto</span>,
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
       icon: (
@@ -164,129 +275,18 @@ function Header() {
       ],
     },
     {
-      label: 'Giao dịch',
-      popupClassName: 'headerSubMenu',
-      key: uuidv4(),
-      icon: (
-        <SwapOutlined
-          style={{ color: 'rgb(252, 213, 53)', fontSize: '1.6rem', transform: 'translateY(1px)' }}
-        />
-      ),
-      children: [
-        {
-          key: uuidv4(),
-          type: 'group',
-          children: [
-            {
-              label: (
-                <div className={'headerSubMenuItem'}>
-                  <div className="title">
-                    Binance Convert &nbsp;
-                    <span className="hot">Hot</span>
-                  </div>
-                  <div className="describe">Cách đơn giản nhất để giao dịch</div>
-                  <ArrowRightOutlined className="icon" />
-                </div>
-              ),
-              icon: <BankOutlined />,
-              key: uuidv4(),
-            },
-            {
-              label: (
-                <div className={'headerSubMenuItem'}>
-                  <div className="title">Binance OTC</div>
-                  <div className="describe">OTC liquidity and execution services</div>
-                  <ArrowRightOutlined className="icon" />
-                </div>
-              ),
-              icon: <CreditCardOutlined />,
-              key: uuidv4(),
-            },
-            {
-              label: (
-                <div className={'headerSubMenuItem'}>
-                  <div className="title">Spot</div>
-                  <div className="describe">Giao dịch tiền mã hóa bằng các công cụ nâng cao</div>
-                  <ArrowRightOutlined className="icon" />
-                </div>
-              ),
-              icon: <BankOutlined />,
-              key: uuidv4(),
-            },
-            {
-              label: (
-                <div className={'headerSubMenuItem'}>
-                  <div className="title">
-                    Ký quỹ &nbsp;
-                    <span className="hot">Hot</span>
-                  </div>
-                  <div className="describe">Tối đa lợi nhuận bằng đòn bẩy cao</div>
-                  <ArrowRightOutlined className="icon" />
-                </div>
-              ),
-              icon: <UserSwitchOutlined />,
-              key: uuidv4(),
-            },
-            {
-              label: (
-                <div className={'headerSubMenuItem'}>
-                  <div className="title">Swap Farming &nbsp; </div>
-                  <div className="describe">Swap để tích luỹ BNB</div>
-                  <ArrowRightOutlined className="icon" />
-                </div>
-              ),
-              icon: <UserSwitchOutlined />,
-              key: uuidv4(),
-            },
-            {
-              label: (
-                <div className={'headerSubMenuItem'}>
-                  <div className="title">Chiến lược Giao dịch &nbsp;</div>
-                  <div className="describe">Giao dịch dễ dàng, giao dịch chuyên nghiệp</div>
-                  <ArrowRightOutlined className="icon" />
-                </div>
-              ),
-              icon: <UserSwitchOutlined />,
-              key: uuidv4(),
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: <Link to="/market">Thị trường</Link>,
-      popupClassName: 'headerSubMenu',
-      key: uuidv4(),
-    },
-
-    // {
-    //   label: 'NFT',
-    //   popupClassName: 'headerSubMenu',
-    //   key: uuidv4(),
-    // },
-    {
-      label: <Link to="/detail/bitcoin">Cryptocurrency Detail</Link>,
-      popupClassName: 'headerSubMenu',
-      key: uuidv4(),
-    },
-    {
-      label: <Link to="/fortfolio">My FortFolio</Link>,
-      popupClassName: 'headerSubMenu',
-      key: uuidv4(),
-    },
-    {
       label: <div style={{ width: '300px' }}></div>,
       popupClassName: 'headerSubMenu',
       disabled: true,
       key: uuidv4(),
     },
     {
-      label: <Link to="/login">Đăng nhập</Link>,
+      label: <Link to="/login">Log in</Link>,
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
     },
     {
-      label: <Link to="/register">Đăng xuất</Link>,
+      label: <Link to="/register">Register</Link>,
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
     },
@@ -319,7 +319,7 @@ function Header() {
         selectedKeys={[current]}
         mode="horizontal"
         items={Submenus}
-        className={'headerMenu'}
+        className={sizeWinDow.width < 420 ? 'headerMenu responsive' : 'headerMenu'}
         overflowedIndicator={<MenuFoldOutlined style={{ fontSize: '2rem' }} />}
         triggerSubMenuAction={sizeWinDow.width < 820 ? 'click' : 'hover'}
       />

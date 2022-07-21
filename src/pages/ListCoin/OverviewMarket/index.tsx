@@ -1,8 +1,11 @@
-import { Col, Row } from 'antd';
-import { memo } from 'react';
+import { Col, Row, Select } from 'antd';
+import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import TableOverView from '../../../components/TableOverView';
+import useWindowSize from '../../../CustomHook/useWindowSize';
 import '../../../styles/ListCoin/OverviewMarket.less';
+
+const { Option } = Select;
 
 interface OverViewMarketInterFace {
   HightLightCoin: any[];
@@ -17,9 +20,34 @@ function OverviewMarket({
   CoinHightVolume,
   CoinNew,
 }: OverViewMarketInterFace) {
+  // state
+  const [typeList, setTypeList] = useState<any>('1');
+  const sizeWinDow = useWindowSize();
+
   // Redux theme
   const { backGroudSP, text } = useSelector((state: any) => state.theme.colors);
-  console.log(backGroudSP, text);
+
+  const handleChange = (value: { value: string; label: React.ReactNode }) => {
+    setTypeList(value.value);
+  };
+
+  const choseTypeList = (type: string) => {
+    switch (type) {
+      case '1':
+        <TableOverView listCoin={HightLightCoin} describe="HightLight Coin" />;
+        break;
+      case '2':
+        <TableOverView listCoin={CoinNew} describe="New Listing" />;
+        break;
+      case '3':
+        <TableOverView listCoin={CoinHightMkC} describe="Top Market Cap" />;
+        break;
+      case '3':
+        <TableOverView listCoin={CoinHightVolume} describe="Top Volume Coin" />;
+        break;
+      default:
+    }
+  };
   //
   return (
     <div
@@ -39,22 +67,48 @@ function OverviewMarket({
             <div style={{ color: text }}>Market Overview</div>
           </div>
         </div>
-        <div className="wrapper">
-          <Row gutter={[{ md: 24, xl: 56 }, 24]} style={{ marginLeft: '0' }}>
-            <Col lg={6}>
+
+        {sizeWinDow.width < 414 ? (
+          <>
+            <Select
+              labelInValue
+              defaultValue={{ value: '1', label: 'HightLight Coin' }}
+              style={{ width: 250, marginBottom: 25 }}
+              onChange={handleChange}
+            >
+              <Option value="1">HightLight Coin</Option>
+              <Option value="2">New Listing</Option>
+              <Option value="3">Top Market Cap</Option>
+              <Option value="4">Top Volume Coin</Option>
+            </Select>
+            {typeList === '1' ? (
               <TableOverView listCoin={HightLightCoin} describe="HightLight Coin" />
-            </Col>
-            <Col lg={6}>
+            ) : typeList === '2' ? (
               <TableOverView listCoin={CoinNew} describe="New Listing" />
-            </Col>
-            <Col lg={6}>
+            ) : typeList === '3' ? (
               <TableOverView listCoin={CoinHightMkC} describe="Top Market Cap" />
-            </Col>
-            <Col lg={6}>
+            ) : (
               <TableOverView listCoin={CoinHightVolume} describe="Top Volume Coin" />
-            </Col>
-          </Row>
-        </div>
+            )}
+          </>
+        ) : (
+          <div className="wrapper">
+            <Row gutter={[{ md: 24, xl: 56 }, 24]} style={{ marginLeft: '0' }}>
+              <Col lg={6}>
+                <TableOverView listCoin={HightLightCoin} describe="HightLight Coin" />
+              </Col>
+              <Col lg={6}>
+                <TableOverView listCoin={CoinNew} describe="New Listing" />
+              </Col>
+              <Col lg={6}>
+                <TableOverView listCoin={CoinHightMkC} describe="Top Market Cap" />
+              </Col>
+              <Col lg={6}>
+                <TableOverView listCoin={CoinHightVolume} describe="Top Volume Coin" />
+              </Col>
+            </Row>
+          </div>
+        )}
       </div>
     </div>
   );

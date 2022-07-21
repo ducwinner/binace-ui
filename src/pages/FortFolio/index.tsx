@@ -6,6 +6,9 @@ import CryptoApi from '../../api/CryptoApi';
 import Chart from '../../components/Chart';
 import TableCoinFortFolio from '../../components/TableCoinFortFolio';
 import '../../styles/Fortfolio/FortFolio.less';
+import suitcaseImng from '../../assets/img/suitcase.png';
+import lighHeartGIF from '../../assets/GIF/heart-light.gif';
+import darkHeartGIF from '../../assets/GIF/heart-dark.gif';
 
 import { DataInterFace } from '../../Redux/fortfolioSlice';
 
@@ -29,6 +32,8 @@ function FortFolio() {
   const { backGroudPrimary, text, textBlurPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
+
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
   const dataUser: DataInterFace[] = useSelector((state: any) => state.fortfolio.data);
   const dispatch: any = useDispatch();
   const [dataPieChart, setDataPieChart] = useState<DataPieChartInterFace[]>([]);
@@ -148,18 +153,50 @@ function FortFolio() {
           defaultActiveKey="1"
           onChange={onChange}
         >
-          <TabPane tab="FortFolio" key="1">
+          <TabPane
+            tab={
+              <div style={{ fontSize: '1.8rem' }}>
+                <span>
+                  <img
+                    style={{ width: '25px', transform: 'translateY(-2px)' }}
+                    src={suitcaseImng}
+                  />
+                </span>
+                &nbsp; Fortfolio
+              </div>
+            }
+            key="1"
+          >
             <Tabs
               style={{ color: textBlurPrimary, fontWeight: 500 }}
               defaultActiveKey="1"
               onChange={onChange}
             >
-              <TabPane tab="My Coins" key="1">
+              <TabPane
+                tab={
+                  <div>
+                    <span>
+                      <img
+                        style={{ width: '25px', transform: 'translateY(-2px)' }}
+                        src={darkMode ? darkHeartGIF : lighHeartGIF}
+                      />
+                    </span>
+                    &nbsp; My coin
+                  </div>
+                }
+                key="1"
+              >
                 <div className="fortfolio-overview">
                   <Row>
-                    <Col style={{ paddingTop: '30px' }} span={12} className="overview-total">
+                    <Col
+                      md={8}
+                      lg={10}
+                      xl={12}
+                      style={{ paddingTop: '30px' }}
+                      className="overview-total"
+                    >
                       <Row gutter={[0, 32]}>
-                        <Col span={12}>
+                        <Col xs={12} sm={12} md={24} lg={12}>
                           <div style={{ color: textBlurPrimary }} className="content">
                             Total Balance
                           </div>
@@ -167,7 +204,7 @@ function FortFolio() {
                             ${lstValue.totalBalance?.toFixed(2)}
                           </div>
                         </Col>
-                        <Col span={12}>
+                        <Col xs={12} sm={12} md={24} lg={12}>
                           <div style={{ color: textBlurPrimary }} className="content">
                             24h Portfolio Change ({lstValue.totalPercentChange24h?.toFixed(2)}%)
                           </div>
@@ -175,7 +212,7 @@ function FortFolio() {
                             ${lstValue.totalChange24h?.toFixed(2)}
                           </div>
                         </Col>
-                        <Col span={12}>
+                        <Col xs={12} sm={12} md={24} lg={12}>
                           <div style={{ color: textBlurPrimary }} className="content">
                             Total Profit Loss (
                             {((lstValue.totalProfitLoss * 100) / lstValue.totalFunds)?.toFixed(2)}%)
@@ -186,7 +223,7 @@ function FortFolio() {
                         </Col>
                       </Row>
                     </Col>
-                    <Col span={12} className="overview-chart">
+                    <Col md={16} lg={14} xl={12} className="overview-chart">
                       <Chart data={dataPieChart} />
                     </Col>
                   </Row>
@@ -198,10 +235,10 @@ function FortFolio() {
               </TabPane>
             </Tabs>
           </TabPane>
-          <TabPane tab="Tab 2" key="2">
+          <TabPane tab={<div style={{ fontSize: '1.6rem' }}></div>} key="2">
             Content of Tab Pane 2
           </TabPane>
-          <TabPane tab="Tab 3" key="3">
+          <TabPane tab={<div style={{ fontSize: '1.6rem' }}></div>} key="2">
             Content of Tab Pane 3
           </TabPane>
         </Tabs>

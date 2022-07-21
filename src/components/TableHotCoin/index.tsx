@@ -65,6 +65,7 @@ function TableHotCoin({ dataCoin }: TableHotCoinInterFace) {
       key: 'tags',
       dataIndex: 'marketCap',
       render: (_, { mkc }) => <div style={{ textAlign: 'end' }}>{mkc}</div>,
+      responsive: ['md'],
     },
   ];
 
@@ -80,7 +81,7 @@ function TableHotCoin({ dataCoin }: TableHotCoinInterFace) {
 
   return (
     // <div className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}>
-    <Table columns={columns} dataSource={data} size="middle" scroll={{ x: 754 }} />
+    <Table columns={columns} dataSource={data} size="middle" scroll={{ x: 390 }} />
     // </div>
   );
 }

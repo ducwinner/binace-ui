@@ -7,10 +7,11 @@ import ButtonLink from '../../components/ButtonLink';
 import TablePriceChange from '../../components/TablePriceChange';
 import '../../styles/Detail/detail.less';
 import warningGIF from '../../assets/GIF/warning.gif';
-import NavigationCoin from '../../components/NavigationCoin';
+import ListCoinTop from '../../components/ListCoinTop';
 import ConvertPrice from '../../GlobalFunction/ConvertPrice';
 import { useDispatch } from 'react-redux';
 import { fethchCoinID, fethchLstCoinMKC } from '../../Redux/CoinApiSlice';
+import useWindowSize from '../../CustomHook/useWindowSize';
 
 // import TradeViewChart from 'react-crypto-chart';
 
@@ -37,7 +38,9 @@ function CoinDetail() {
   const url = window.location.href;
   const nameCoin: string = url.split('/').splice(-1, 1)[0];
   const [inputPrice, setInputPrice] = useState<number>();
-  //ReDux theme
+  const size = useWindowSize();
+
+  //Redux theme
   const {
     text,
     backGroudSP,
@@ -100,8 +103,90 @@ function CoinDetail() {
           <div style={{ color: textBlurPrimary }}>({symbol})</div>
         </div>
         <div className="coin-detail-body">
-          <Row gutter={[56, 0]}>
-            <Col span={14} className="coin-detail-left">
+          <Row gutter={[56, 0]} style={{ marginRight: 0 }}>
+            <Col md={14} className="coin-detail-left">
+              {size.width < 768 ? (
+                <>
+                  <div className="buy-crypto">
+                    <div style={{ color: textBlurTitle }} className="header">
+                      {symbol} Price Calculator
+                    </div>
+                    <div style={{ backgroundColor: backGroudSP }} className="calculate">
+                      <label style={{ color: textBlurPrimary }} htmlFor="calculate">
+                        Buy
+                      </label>
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          height: '40px',
+                        }}
+                      >
+                        <input
+                          style={{ backgroundColor: backGroudSP, color: textPrimary }}
+                          type="number"
+                          value={inputPrice}
+                          id="calculate"
+                          onChange={onCalculateChange}
+                          placeholder="0.00"
+                        ></input>
+                        <div
+                          style={{
+                            color: text,
+                          }}
+                          className="cover-img-symbol"
+                        >
+                          <img src={img} alt={symbol} />
+                          <span>{symbol}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ color: textBlurPrimary }} className="calculate-output">
+                      <div>Price</div>
+                      <div>
+                        USD $ &nbsp;
+                        {!inputPrice ? '0.00' : (inputPrice * priceCurrent)?.toFixed(0)}
+                      </div>
+                    </div>
+                    <ButtonLink width="100%" title="Buy BTC" path="/" />
+                  </div>
+
+                  <div style={{ backgroundColor: backGroudSP }} className="detail-transaction-fee">
+                    <img src={warningGIF} alt="img" />
+                    <div style={{ color: textBlurPrimary }} className="title">
+                      Binance has the lowest transaction fee rate amongst all major trading
+                      platforms.
+                    </div>
+                    <div className="progess">
+                      <div style={{ color: text }} className="exchanges">
+                        Coin Base
+                      </div>
+                      <div className="progess-percent">
+                        <div style={{ backgroundColor: '#F6465D', width: '90%' }}>1.4%</div>
+                      </div>
+                    </div>{' '}
+                    <div className="progess">
+                      <div style={{ color: text }} className="exchanges">
+                        Kraken
+                      </div>
+                      <div className="progess-percent">
+                        <div style={{ backgroundColor: '#F6465D', width: '50%' }}>0.26%</div>
+                      </div>
+                    </div>{' '}
+                    <div className="progess">
+                      <div style={{ color: text }} className="exchanges">
+                        Binance
+                      </div>
+                      <div className="progess-percent">
+                        <div style={{ backgroundColor: '#0ECB81', width: '15%' }}>0.3%</div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : null}
+
               <div style={{ color: text }} className="price-header">
                 $ &nbsp; {priceCurrent?.toLocaleString()} &nbsp;
                 <span style={{ color: priceChange24h > 0 ? priceUp : priceDown }}>
@@ -177,8 +262,8 @@ function CoinDetail() {
                   {symbol} Price Information
                 </div>
                 <div className="price-infomation-content">
-                  <Row>
-                    <Col span={6}>
+                  <Row gutter={[16, 16]}>
+                    <Col xs={12} md={6}>
                       <div style={{ color: textBlurPrimary }} className="top">
                         All Time High &nbsp; <WarningOutlined />
                       </div>
@@ -186,7 +271,7 @@ function CoinDetail() {
                         $ &nbsp; {ath?.toLocaleString()}
                       </div>
                     </Col>
-                    <Col span={6}>
+                    <Col xs={12} md={6}>
                       <div style={{ color: textBlurPrimary }} className="top">
                         Price Change (1h) &nbsp; <WarningOutlined />
                       </div>
@@ -197,7 +282,7 @@ function CoinDetail() {
                         &nbsp;{priceChange1h?.toFixed(2)}%
                       </div>
                     </Col>
-                    <Col span={6}>
+                    <Col xs={12} md={6}>
                       <div style={{ color: textBlurPrimary }} className="top">
                         Price Change (24h) &nbsp; <WarningOutlined />
                       </div>
@@ -208,7 +293,7 @@ function CoinDetail() {
                         &nbsp;{priceChange24h?.toFixed(2)}%
                       </div>
                     </Col>
-                    <Col span={6}>
+                    <Col xs={12} md={6}>
                       <div style={{ color: textBlurPrimary }} className="top">
                         Price Change (7d) &nbsp; <WarningOutlined />
                       </div>
@@ -227,8 +312,8 @@ function CoinDetail() {
                   {symbol} Market Information
                 </div>
                 <div className="price-infomation-content">
-                  <Row>
-                    <Col span={6}>
+                  <Row gutter={[16, 16]}>
+                    <Col xs={12} md={6}>
                       <div style={{ color: textBlurPrimary }} className="top">
                         Popularity &nbsp; <WarningOutlined />
                       </div>
@@ -236,7 +321,7 @@ function CoinDetail() {
                         #{rank}
                       </div>
                     </Col>
-                    <Col span={6}>
+                    <Col xs={12} md={6}>
                       <div style={{ color: textBlurPrimary }} className="top">
                         Market Cap &nbsp; <WarningOutlined />
                       </div>
@@ -244,7 +329,7 @@ function CoinDetail() {
                         $ &nbsp;{mkc}
                       </div>
                     </Col>
-                    <Col span={6}>
+                    <Col xs={12} md={6}>
                       <div style={{ color: textBlurPrimary }} className="top">
                         $ &nbsp; Total Volume &nbsp; <WarningOutlined />
                       </div>
@@ -252,7 +337,7 @@ function CoinDetail() {
                         &nbsp;{totalVolum}
                       </div>
                     </Col>
-                    <Col span={6}>
+                    <Col xs={12} md={6}>
                       <div style={{ color: textBlurPrimary }} className="top">
                         Circulation Supply &nbsp; <WarningOutlined />
                       </div>
@@ -264,88 +349,93 @@ function CoinDetail() {
                 </div>
               </div>
             </Col>
-            <Col span={10} className="coin-detail-right">
-              <div className="buy-crypto">
-                <div style={{ color: textBlurTitle }} className="header">
-                  {symbol} Price Calculator
-                </div>
-                <div style={{ backgroundColor: backGroudSP }} className="calculate">
-                  <label style={{ color: textBlurPrimary }} htmlFor="calculate">
-                    Buy
-                  </label>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      height: '40px',
-                    }}
-                  >
-                    <input
-                      style={{ backgroundColor: backGroudSP, color: textPrimary }}
-                      type="number"
-                      value={inputPrice}
-                      id="calculate"
-                      onChange={onCalculateChange}
-                      placeholder="0.00"
-                    ></input>
-                    <div
-                      style={{
-                        color: text,
-                      }}
-                      className="cover-img-symbol"
-                    >
-                      <img src={img} alt={symbol} />
-                      <span>{symbol}</span>
+            <Col md={10} className="coin-detail-right">
+              {size.width > 768 ? (
+                <>
+                  {' '}
+                  <div className="buy-crypto">
+                    <div style={{ color: textBlurTitle }} className="header">
+                      {symbol} Price Calculator
+                    </div>
+                    <div style={{ backgroundColor: backGroudSP }} className="calculate">
+                      <label style={{ color: textBlurPrimary }} htmlFor="calculate">
+                        Buy
+                      </label>
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          height: '40px',
+                        }}
+                      >
+                        <input
+                          style={{ backgroundColor: backGroudSP, color: textPrimary }}
+                          type="number"
+                          value={inputPrice}
+                          id="calculate"
+                          onChange={onCalculateChange}
+                          placeholder="0.00"
+                        ></input>
+                        <div
+                          style={{
+                            color: text,
+                          }}
+                          className="cover-img-symbol"
+                        >
+                          <img src={img} alt={symbol} />
+                          <span>{symbol}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ color: textBlurPrimary }} className="calculate-output">
+                      <div>Price</div>
+                      <div>
+                        USD $ &nbsp;
+                        {!inputPrice ? '0.00' : (inputPrice * priceCurrent)?.toFixed(0)}
+                      </div>
+                    </div>
+                    <ButtonLink width="100%" title="Buy BTC" path="/" />
+                  </div>
+                  <div style={{ backgroundColor: backGroudSP }} className="detail-transaction-fee">
+                    <img src={warningGIF} alt="img" />
+                    <div style={{ color: textBlurPrimary }} className="title">
+                      Binance has the lowest transaction fee rate amongst all major trading
+                      platforms.
+                    </div>
+                    <div className="progess">
+                      <div style={{ color: text }} className="exchanges">
+                        Coin Base
+                      </div>
+                      <div className="progess-percent">
+                        <div style={{ backgroundColor: '#F6465D', width: '90%' }}>1.4%</div>
+                      </div>
+                    </div>{' '}
+                    <div className="progess">
+                      <div style={{ color: text }} className="exchanges">
+                        Kraken
+                      </div>
+                      <div className="progess-percent">
+                        <div style={{ backgroundColor: '#F6465D', width: '50%' }}>0.26%</div>
+                      </div>
+                    </div>{' '}
+                    <div className="progess">
+                      <div style={{ color: text }} className="exchanges">
+                        Binance
+                      </div>
+                      <div className="progess-percent">
+                        <div style={{ backgroundColor: '#0ECB81', width: '15%' }}>0.3%</div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </>
+              ) : null}
 
-                <div style={{ color: textBlurPrimary }} className="calculate-output">
-                  <div>Price</div>
-                  <div>
-                    USD $ &nbsp;
-                    {!inputPrice ? '0.00' : (inputPrice * priceCurrent)?.toFixed(0)}
-                  </div>
-                </div>
-                <ButtonLink width="100%" title="Buy BTC" path="/" />
-              </div>
-
-              <div style={{ backgroundColor: backGroudSP }} className="detail-transaction-fee">
-                <img src={warningGIF} alt="img" />
-                <div style={{ color: textBlurPrimary }} className="title">
-                  Binance has the lowest transaction fee rate amongst all major trading platforms.
-                </div>
-                <div className="progess">
-                  <div style={{ color: text }} className="exchanges">
-                    Coin Base
-                  </div>
-                  <div className="progess-percent">
-                    <div style={{ backgroundColor: '#F6465D', width: '90%' }}>1.4%</div>
-                  </div>
-                </div>{' '}
-                <div className="progess">
-                  <div style={{ color: text }} className="exchanges">
-                    Kraken
-                  </div>
-                  <div className="progess-percent">
-                    <div style={{ backgroundColor: '#F6465D', width: '50%' }}>0.26%</div>
-                  </div>
-                </div>{' '}
-                <div className="progess">
-                  <div style={{ color: text }} className="exchanges">
-                    Binance
-                  </div>
-                  <div className="progess-percent">
-                    <div style={{ backgroundColor: '#0ECB81', width: '15%' }}>0.3%</div>
-                  </div>
-                </div>
-              </div>
-
-              <NavigationCoin dataCoin={listTrending} title="Trending cryptos" />
-              <NavigationCoin dataCoin={listTopGainers} title="Top 3 Gainers" />
-              <NavigationCoin dataCoin={listTopLosers} title="Top 3 Losers" />
-              <NavigationCoin dataCoin={ListNewAdd} title="Newly Added Cryptos" />
+              <ListCoinTop dataCoin={listTrending} title="Trending cryptos" />
+              <ListCoinTop dataCoin={listTopGainers} title="Top 3 Gainers" />
+              <ListCoinTop dataCoin={listTopLosers} title="Top 3 Losers" />
+              <ListCoinTop dataCoin={ListNewAdd} title="Newly Added Cryptos" />
             </Col>
           </Row>
         </div>

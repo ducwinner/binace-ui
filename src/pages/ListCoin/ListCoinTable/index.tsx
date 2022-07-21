@@ -57,9 +57,7 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
   );
 
   const onSearchClick = () => {
-    console.log(iconSearch);
     setIconSearch(true);
-    console.log(iconSearch);
   };
 
   useEffect(() => {
@@ -71,15 +69,40 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
     }
   }, [sizeWindow]);
 
-  console.log(iconSearch);
-
   return (
     <div
       style={{
         backgroundColor: backGroudPrimary,
+        flexDirection: iconSearch ? 'column' : 'row',
       }}
       className="coverContainerListCoin"
     >
+      {iconSearch ? (
+        <Input.Group
+          style={{ backgroundColor: backGroudPrimary }}
+          size="large"
+          compact
+          className="input-search responsive"
+        >
+          <Select
+            onChange={onSelectChange}
+            style={{ width: '100px' }}
+            size="large"
+            defaultValue="Name"
+            className={darkMode ? 'darkMode' : ''}
+          >
+            <Option value="Name">Name</Option>
+            <Option value="Symbol">Symbol</Option>
+          </Select>
+          <Input
+            style={{ backgroundColor: backGroudPrimary, color: textPrimary }}
+            maxLength={8}
+            size="large"
+            onChange={onSearchChange}
+            placeholder={'search coin'}
+          ></Input>
+        </Input.Group>
+      ) : null}
       <div style={{ position: 'relative' }} className="ContainerListCoin">
         <Tabs
           style={{ width: '100%', color: textBlurPrimary, fontWeight: 500, borderBottom: 'red' }}
@@ -91,7 +114,7 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
             forceRender
             tab={
               <span>
-                <StarOutlined /> Danh sách yêu thích
+                <StarOutlined /> Favorites
               </span>
             }
             key="1"
@@ -147,17 +170,12 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
             </Tabs>
           </TabPane>
         </Tabs>
-        {iconSearch ? (
-          <div className="icon-search" onClick={onSearchClick}>
-            <SearchOutlined color={text} className="icon" sizes={'3.2rem'} />
-            Search
-          </div>
-        ) : (
+        {!iconSearch ? (
           <Input.Group
             style={{ backgroundColor: backGroudPrimary }}
             size="large"
             compact
-            className="inputSearch"
+            className="input-search"
           >
             <Select
               onChange={onSelectChange}
@@ -177,7 +195,7 @@ function ListCoinTable({ dataCoinMKC }: ListCoinTableInterFace) {
               placeholder={'Tìm kiếm đồng coin'}
             ></Input>
           </Input.Group>
-        )}
+        ) : null}
       </div>
     </div>
   );

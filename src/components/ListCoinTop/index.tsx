@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import '../../styles/component/NavigationCoin.less';
+import '../../styles/component/ListCoinTop.less';
 
-interface NavigationCoinInterFace {
+interface ListCoinTopInterFace {
   dataCoin: Object[];
   title: string;
 }
 
-function NavigationCoin({ dataCoin, title }: NavigationCoinInterFace) {
+function ListCoinTop({ dataCoin, title }: ListCoinTopInterFace) {
   //Redux Theme
   const { text, textBlurPrimary, priceUp, priceDown } = useSelector(
     (state: any) => state.theme.colors
@@ -56,4 +56,4 @@ function NavigationCoin({ dataCoin, title }: NavigationCoinInterFace) {
   );
 }
 
-export default NavigationCoin;
+export default ListCoinTop;

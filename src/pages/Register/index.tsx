@@ -27,15 +27,15 @@ function Register() {
   };
   return (
     <div style={{ height: '100%' }}>
-      <div style={{ backgroundColor: backGroudPrimary }} className="loginInner">
+      <div style={{ backgroundColor: backGroudPrimary, padding: '0 20px' }} className="loginInner">
         <Row>
-          <Col span={4}></Col>
-          <Col span={16}>
-            <div style={{ color: text }} className="loginInnerHeader">
+          <Col xs={0} sm={4} md={4}></Col>
+          <Col xs={24} sm={24} md={16}>
+            <div style={{ color: text, textAlign: 'center' }} className="loginInnerHeader">
               Binance Account Login
             </div>
-            <Row>
-              <Col span={12}>
+            <Row gutter={[16, 16]}>
+              <Col xs={24} sm={24} md={12}>
                 <div className={darkMode ? 'darkMode formLogin' : 'formLogin'}>
                   <div className="typeLogin">
                     <div
@@ -119,7 +119,7 @@ function Register() {
                       <Form.Item
                         hasFeedback
                         style={{ display: 'flex' }}
-                        label={<div style={{ color: text }}>ConfirmPassword</div>}
+                        label={<div style={{ color: text }}>Confirm pw</div>}
                         name="confirmPassword"
                         rules={[
                           { required: true, message: 'Please input your password!' },
@@ -172,7 +172,7 @@ function Register() {
                   </Link>
                 </div>
               </Col>
-              <Col span={12}>
+              <Col xs={0} sm={0} md={12}>
                 <div className="qrCode">
                   <div className="imgQRcode">
                     <img
@@ -191,7 +191,7 @@ function Register() {
               </Col>
             </Row>
           </Col>
-          <Col span={4}></Col>
+          <Col xs={0} sm={4} md={4}></Col>
         </Row>
       </div>
     </div>
