@@ -23,10 +23,10 @@ function Login() {
     setTypeLogin(e);
   };
 
-  // const onFinish = async (values: { email: string; password: string }) => {
-  //   console.log(values);
-  //   const duc = await dispatch(login(values));
-  // };
+  const onFinish = async (values: { email: string; password: string }) => {
+    console.log(values);
+    // const duc = await dispatch(login(values));
+  };
 
   // console.log(user);
 
