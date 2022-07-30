@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import '../../styles/component/CardNew.less';
 
 function CardNew({ data, urlImg }: any) {
-  const { text, textBlurPrimary, backGroudPrimary, backGroudSP } = useSelector(
+  const { text, textBlurPrimary, backGroudPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
   return (

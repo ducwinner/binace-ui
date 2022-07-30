@@ -34,7 +34,7 @@ export interface DataPieChartInterFace {
 
 function FortFolio() {
   //Redux
-  const { backGroudPrimary, text, textBlurPrimary, backGroudSP } = useSelector(
+  const { backGroudPrimary, text, textBlurPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
 
@@ -62,14 +62,14 @@ function FortFolio() {
       await dispatch(fethchLstCoinMKC());
     };
     fetchCoin();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
       dispatch(getFortfolio({ userId: userId }));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (dataUser.length > 0) {
@@ -148,7 +148,7 @@ function FortFolio() {
         return total + coin.quantity * price;
       }, 0);
 
-      if (totalBalance != 0) {
+      if (totalBalance !== 0) {
         var totalPercentChange24h = (totalChange24h / totalBalance) * 100;
       } else {
         var totalPercentChange24h = 0;
@@ -215,7 +215,7 @@ function FortFolio() {
   const handleAddCoin = async (coinId: any) => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      const isExistCoin = dataUser.filter((e: any) => e.coinId == coinId);
+      const isExistCoin = dataUser.filter((e: any) => e.coinId === coinId);
       if (isExistCoin.length > 0) {
         notify('This coin is exist!');
       } else {
@@ -306,7 +306,7 @@ function FortFolio() {
                         <Col xs={12} sm={12} md={24} lg={12}>
                           <div style={{ color: textBlurPrimary }} className="content">
                             Total Profit Loss (
-                            {lstValue.totalFunds != 0
+                            {lstValue.totalFunds !== 0
                               ? ((lstValue.totalProfitLoss * 100) / lstValue.totalFunds)?.toFixed(2)
                               : 0}
                             %)

@@ -37,11 +37,9 @@ function Header() {
   //Redux theme
   const dispatch: any = useDispatch();
 
-  console.log('user', user);
-
   useEffect(() => {
     if (localStorage.getItem('token')) dispatch(getMe({ userId: 1 }));
-  }, []);
+  }, [dispatch]);
 
   const changeTheme = (value: boolean) => {
     if (theme === 'light') {

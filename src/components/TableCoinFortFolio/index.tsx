@@ -259,12 +259,12 @@ function TableCoinFortFolio({ lstValue, lstCoinUser }: TableCoinFortFolioInterFa
       priceInput: e?.priceInput,
       hodding: coin?.current_price * e?.quantity,
       ratioHodding:
-        lstValue.totalBalance != 0
+        lstValue.totalBalance !== 0
           ? (coin?.current_price * e?.quantity * 100) / lstValue.totalBalance
           : 0,
       PNL: (coin?.current_price - e?.priceInput) * e?.quantity,
       ratioPNL:
-        e?.priceInput != 0 ? ((coin?.current_price - e?.priceInput) * 100) / e?.priceInput : 0,
+        e?.priceInput !== 0 ? ((coin?.current_price - e?.priceInput) * 100) / e?.priceInput : 0,
     };
   });
 

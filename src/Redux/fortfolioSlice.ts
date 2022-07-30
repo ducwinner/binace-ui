@@ -112,7 +112,7 @@ const fortfolioSlice = createSlice({
             })
             .addCase(deleteCoinUser.fulfilled, (state: any, action) => {
                 state.loading = false
-                if(action.payload.error != 0) {
+                if(action.payload.error !== 0) {
                     console.log(action.payload.message)
                 }
             })
@@ -124,7 +124,7 @@ const fortfolioSlice = createSlice({
             })
             .addCase(addNewCoin.fulfilled, (state: any, action) => {
                 state.loading = false
-                if(action.payload.error != 0) {
+                if(action.payload.error !== 0) {
                     console.log(action.payload.message)
                 }
             })
@@ -134,5 +134,5 @@ const fortfolioSlice = createSlice({
     }
 })
 
-const {reducer, actions} = fortfolioSlice
+const {reducer} = fortfolioSlice
 export default reducer

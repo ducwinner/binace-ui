@@ -1,6 +1,5 @@
 import { Col, Row } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,13 +11,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
   //Redux
-  const { backGroudPrimary, textPrimary, text, textBlurPrimary, backGroudSP } = useSelector(
+  const { backGroudPrimary, text, textBlurPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
   const darkMode = useSelector((state: any) => state.theme.darkMode);
   const dispatch: any = useDispatch();
   const history = useNavigate();
-  const Auth = useSelector((state: any) => state.user);
 
   const onFinish = async (values: {
     name: string;
@@ -29,9 +27,8 @@ function Register() {
   }) => {
     const payload = { ...values, roleId: 'user' };
     const result = await dispatch(register(payload));
-    console.log(result);
-    if (result.meta.requestStatus == 'fulfilled') {
-      if (result.payload.errCode == 0) {
+    if (result.meta.requestStatus === 'fulfilled') {
+      if (result.payload.errCode === 0) {
         notify();
         localStorage.setItem('register', 'new');
         setTimeout(() => {
