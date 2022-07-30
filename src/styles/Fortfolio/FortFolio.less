@@ -6,6 +6,7 @@
 }
 
 .fortfolio-inner {
+    position: relative;
     padding: 40px 20px;
     width: 1200px;
     max-width: 100%;
@@ -39,9 +40,131 @@
     }
 }
 
+.addCoin-modal {
+
+    .ant-modal-content {
+        width: 520px;
+        max-width: 100%;
+        
+    }
+
+    .input-search {
+        border-radius: 8px;
+        width: 100%;
+        border: none;
+        outline: 1px solid rgb(240, 185, 11);
+        font-size: 1.8rem;
+        height: 40px;
+        color: #69a235;
+        padding-left: 20px;
+        margin-bottom: 20px;
+    }
+    
+}
+
+
+.tool-action {
+    margin: 30px 0;
+    display: flex; 
+    justify-content: flex-end;
+}
+
+// Modal Add Coin-----------------------------
+
+.addCoin-modal .list-coin-search {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid rgb(133, 133, 133);
+    overflow: hidden;
+
+    .coin-item:not(li:last-child) {
+        border-bottom: 1px solid rgb(133, 133, 133);
+    }
+
+    .coin-item {
+        &:hover {
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+        width: 100%;
+        list-style: none;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        img { 
+            margin: 10px 15px;
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+// Modal Login ------------------------------ 
+
+.modal-login {
+    .modal-title {
+        display: flex;
+        justify-content: center;
+    }
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ant-btn-primary {
+        display: none;
+    }
+}
+
+// -- dark theme modal
+
+.darkMode {
+    .ant-modal-header,
+    .ant-modal-body,
+    .ant-modal-footer {
+        background-color: #181a20 !important;
+    }
+
+    .ant-modal-header .ant-modal-title {
+        color: rgb(234, 236, 239)
+    }
+
+    .coin-item:hover {
+        background-color: rgb(11 14 17);
+    }
+}
+
 .RowHeight {
     .ant-table-tbody > tr.ant-table-row td {
         height: 64px;
+    }
+}
+
+.RowHeight .actions {
+    display: flex;
+    font-size: 1.6rem;
+
+    .action-icon {
+        cursor: pointer;
+        padding: 5px 5px;
+        margin: 0 5px;
+
+        &:hover {
+            color: #C99400;
+        }
+    }
+}
+
+.modal-update-coin {
+    .ant-modal-footer {
+        opacity: 0;
     }
 }
 

@@ -1,6 +1,8 @@
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { PieChart, Pie, Legend, Cell, ResponsiveContainer } from 'recharts';
 import useWindowSize from '../../CustomHook/useWindowSize';
+import { DataPieChartInterFace } from '../../pages/FortFolio';
 
 const COLORS = ['rgb(32, 108, 214', '#00C49F', 'rgb(252, 213, 53)', '#FF8042'];
 
@@ -20,12 +22,12 @@ const Bullet = ({ backgroundColor, size }: any) => {
 };
 
 interface ChartInterFace {
-  data: Object[];
+  data: DataPieChartInterFace[];
 }
-export default function PieChartCoin({ data }: ChartInterFace) {
+function PieChartCoin({ data }: ChartInterFace) {
   const { backGroudPrimary, text } = useSelector((state: any) => state.theme.colors);
   const size = useWindowSize();
-
+  const chart = data.length > 0 ? data : [{ name: 'TOTAL', value: 1000 }];
   const CustomizedLegend = (props: any) => {
     const { payload } = props;
     return (
@@ -42,7 +44,9 @@ export default function PieChartCoin({ data }: ChartInterFace) {
                 className="BulletLabelText"
               >
                 {entry.value}
-                <span style={{ marginLeft: '20px' }}>{entry.payload.value}$US</span>
+                <span style={{ marginLeft: '20px', opacity: data.length > 0 ? 1 : 0 }}>
+                  {entry.payload.value}$US
+                </span>
               </div>
             </div>
           </li>
@@ -56,14 +60,14 @@ export default function PieChartCoin({ data }: ChartInterFace) {
       <ResponsiveContainer>
         <PieChart style={{ backgroundColor: backGroudPrimary }}>
           <Pie
-            data={data}
+            data={chart}
             dataKey="value"
-            cx={size.width > 500 ? 100 : 180}
+            cx={size.width > 500 ? 150 : 180}
             cy={size.width > 500 ? 200 : 120}
             innerRadius={80}
             outerRadius={100}
           >
-            {data.map((entry, index) => (
+            {chart.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
@@ -82,3 +86,5 @@ export default function PieChartCoin({ data }: ChartInterFace) {
     </div>
   );
 }
+
+export default memo(PieChartCoin);

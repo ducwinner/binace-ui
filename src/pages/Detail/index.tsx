@@ -12,8 +12,9 @@ import ConvertPrice from '../../GlobalFunction/ConvertPrice';
 import { useDispatch } from 'react-redux';
 import { fethchCoinID, fethchLstCoinMKC } from '../../Redux/CoinApiSlice';
 import useWindowSize from '../../CustomHook/useWindowSize';
-
-// import TradeViewChart from 'react-crypto-chart';
+import AxiosNews from '../../api/AxiosNewsApi';
+import { urlImg } from '../../Data/News';
+import CardNew from '../../components/CardNew';
 
 var img: string;
 var name: string;
@@ -54,6 +55,18 @@ function CoinDetail() {
   const coinDetail = useSelector((state: any) => state.listCoinApi.detailCoin);
   const lstCoinMkc = useSelector((state: any) => state.listCoinApi.lstCoinMkc);
   const dispatch = useDispatch<any>();
+  const [news, setNews] = useState([]);
+
+  console.log(news);
+
+  useEffect(() => {
+    const fetchNew = async () => {
+      const news: any = await AxiosNews.get('/');
+      const newList: any = news.slice(0, 3);
+      setNews(newList);
+    };
+    fetchNew();
+  }, []);
 
   useEffect(() => {
     dispatch(fethchCoinID(nameCoin));
@@ -93,7 +106,6 @@ function CoinDetail() {
   const onCalculateChange = (e: any) => {
     if (e.target.value < 9999999999) setInputPrice(e.target.value);
   };
-  console.log('ssss');
   return (
     <div style={{ backgroundColor: backGroudPrimary }} className="coin-detail">
       <div className="coin-detail-inner">
@@ -347,6 +359,23 @@ function CoinDetail() {
                     </Col>
                   </Row>
                 </div>
+              </div>
+              <div className="coin-new">
+                <div className={'header-news'}>
+                  <h2 style={{ color: text }}>Analysis</h2>
+                  <h4 style={{ color: textBlurPrimary }}>
+                    View in-depth crypto research and discussion articles on our Analysis section.
+                  </h4>
+                </div>
+                <Row gutter={[0, 24]}>
+                  {news?.map((item, index) => {
+                    return (
+                      <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+                        <CardNew urlImg={urlImg[index]} data={item} />
+                      </Col>
+                    );
+                  })}
+                </Row>
               </div>
             </Col>
             <Col md={10} className="coin-detail-right">

@@ -1,9 +1,14 @@
 import axios from 'axios';
-const authAxios = axios.create({
-  baseURL: 'http://localhost:5555/api/login',
-  headers: { 'content-type': 'application/json'}
-});
 
+
+const local = "http://localhost:1444/api"
+const dev = "https://duc-backend-nodejs.herokuapp.com/api"
+const authAxios = axios.create({
+  baseURL: dev,
+  headers: { 'content-type': 'application/json',
+  'Authorization': 'Bearer ' + localStorage.getItem('token') || ''
+}
+});
 authAxios.interceptors.request.use(
   function (config: any) {
     // Do something before request is sent
@@ -30,5 +35,8 @@ authAxios.interceptors.response.use(
   }
 );
 
+export const setTokenHeaderAxios = (token: string) => {
+  authAxios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+}
 
 export default authAxios;

@@ -1,6 +1,7 @@
 import { RightOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import TableHotCoin from '../../../components/TableHotCoin';
 import { fethchLstCoinMKC } from '../../../Redux/CoinApiSlice';
 
@@ -33,9 +34,9 @@ function Popular() {
           <div className="content" style={{ color: text }}>
             Popular cryptocurrencies
           </div>
-          <div className="viewMore" style={{ color: textBlurPrimary }}>
+          <Link to={'/market'} className="viewMore" style={{ color: textBlurPrimary }}>
             View more markets <RightOutlined />
-          </div>
+          </Link>
         </div>
         <div className="popularListCoin">
           <TableHotCoin dataCoin={listCoin} />

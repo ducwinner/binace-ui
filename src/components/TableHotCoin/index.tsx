@@ -23,6 +23,7 @@ interface DataType {
 }
 
 function TableHotCoin({ dataCoin }: TableHotCoinInterFace) {
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
   const columns: ColumnsType<DataType> = [
     {
       title: 'Name',
@@ -78,9 +79,9 @@ function TableHotCoin({ dataCoin }: TableHotCoinInterFace) {
   });
 
   return (
-    // <div className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}>
-    <Table columns={columns} dataSource={data} size="middle" scroll={{ x: 390 }} />
-    // </div>
+    <div className={darkMode ? 'darkMode RowHeight' : 'RowHeight'}>
+      <Table columns={columns} dataSource={data} size="middle" scroll={{ x: 390 }} />
+    </div>
   );
 }
 

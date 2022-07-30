@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
 
@@ -21,3 +21,5 @@ export const LineChartCoin = ({ data }: LineChartCoinInterFace) => {
     </div>
   );
 };
+
+export default memo(LineChartCoin);

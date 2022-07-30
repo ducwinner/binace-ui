@@ -1,9 +1,14 @@
 import { Col, Row } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { register } from '../../Redux/authSlice';
 import '../../styles//Login.less';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
   //Redux
@@ -11,20 +16,39 @@ function Register() {
     (state: any) => state.theme.colors
   );
   const darkMode = useSelector((state: any) => state.theme.darkMode);
+  const dispatch: any = useDispatch();
+  const history = useNavigate();
+  const Auth = useSelector((state: any) => state.user);
 
-  const [typeLogin, setTypeLogin] = useState<boolean>(true);
-
-  const onChangeTypeLogin = (e: any) => {
-    setTypeLogin(e);
-  };
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const onFinish = async (values: {
+    name: string;
+    email: string;
+    phone: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
+    const payload = { ...values, roleId: 'user' };
+    const result = await dispatch(register(payload));
+    console.log(result);
+    if (result.meta.requestStatus == 'fulfilled') {
+      if (result.payload.errCode == 0) {
+        notify();
+        localStorage.setItem('register', 'new');
+        setTimeout(() => {
+          history('/login');
+        }, 2000);
+      } else {
+        alert(result.payload.message);
+      }
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
+
+  const notify = () => toast('successful register!');
+
   return (
     <div style={{ height: '100%' }}>
       <div style={{ backgroundColor: backGroudPrimary, padding: '0 20px' }} className="loginInner">
@@ -32,12 +56,12 @@ function Register() {
           <Col xs={0} sm={4} md={4}></Col>
           <Col xs={24} sm={24} md={16}>
             <div style={{ color: text, textAlign: 'center' }} className="loginInnerHeader">
-              Binance Account Login
+              Binance Account Register
             </div>
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={24} md={12}>
                 <div className={darkMode ? 'darkMode formLogin' : 'formLogin'}>
-                  <div className="typeLogin">
+                  {/* <div className="typeLogin">
                     <div
                       style={{ color: text }}
                       onClick={() => onChangeTypeLogin(true)}
@@ -52,7 +76,7 @@ function Register() {
                     >
                       Phone Number
                     </div>
-                  </div>
+                  </div> */}
                   <div className="formForm">
                     <Form
                       layout="vertical"
@@ -76,35 +100,31 @@ function Register() {
                       >
                         <Input />
                       </Form.Item>
-                      {typeLogin ? (
-                        <Form.Item
-                          style={{ display: 'flex' }}
-                          label={<div style={{ color: text }}>Email</div>}
-                          name="Email"
-                          rules={[
-                            { required: true, message: 'Please input your Emai!' },
-                            { type: 'email', message: 'error! xd: abc123@gmail.com' },
-                          ]}
-                          hasFeedback
-                        >
-                          <Input />
-                        </Form.Item>
-                      ) : (
-                        <Form.Item
-                          hasFeedback
-                          name="PhoneNumber"
-                          label={<div style={{ color: text }}>Phone number</div>}
-                          style={{ display: 'flex' }}
-                          rules={[
-                            { required: true, message: 'Please input your phone Number!' },
-                            { type: 'number' },
-                            { min: 9 },
-                            { max: 12 },
-                          ]}
-                        >
-                          <Input placeholder=" XD: 0397879378 " />
-                        </Form.Item>
-                      )}
+                      <Form.Item
+                        style={{ display: 'flex' }}
+                        label={<div style={{ color: text }}>Email</div>}
+                        name="email"
+                        rules={[
+                          { required: true, message: 'Please input your Emai!' },
+                          { type: 'email', message: 'error! xd: abc123@gmail.com' },
+                        ]}
+                        hasFeedback
+                      >
+                        <Input />
+                      </Form.Item>
+                      <Form.Item
+                        hasFeedback
+                        name="phone"
+                        label={<div style={{ color: text }}>Phone number</div>}
+                        style={{ display: 'flex' }}
+                        rules={[
+                          { required: true, message: 'Please input your phone Number!' },
+                          { min: 9 },
+                          { max: 12 },
+                        ]}
+                      >
+                        <Input type={'number'} placeholder=" XD: 0397879378 " />
+                      </Form.Item>
 
                       <Form.Item
                         hasFeedback
@@ -194,6 +214,7 @@ function Register() {
           <Col xs={0} sm={4} md={4}></Col>
         </Row>
       </div>
+      <ToastContainer />
     </div>
   );
 }

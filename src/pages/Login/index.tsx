@@ -1,38 +1,57 @@
 import { Col, Row } from 'antd';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { login } from '../../Redux/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../Redux/authSlice';
 import '../../styles/Login.less';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   // Redux
-  // const user = useSelector((state: any) => state.user.authUser);
   const { backGroudPrimary, text, textBlurPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
   const darkMode = useSelector((state: any) => state.theme.darkMode);
-
-  // const dispatch: any = useDispatch();
-
+  const dispatch: any = useDispatch();
   const [typeLogin, setTypeLogin] = useState<boolean>(true);
+  const history = useNavigate();
 
   const onChangeTypeLogin = (e: any) => {
     setTypeLogin(e);
   };
 
   const onFinish = async (values: { email: string; password: string }) => {
-    console.log(values);
-    // const duc = await dispatch(login(values));
+    const result = await dispatch(login(values));
+    console.log(result);
+    if (result.meta.requestStatus == 'fulfilled') {
+      if (result.payload.token) {
+        notify();
+        setTimeout(() => {
+          console.log(localStorage.getItem('register'));
+          if (localStorage.getItem('register') == 'new') {
+            history('/');
+          } else {
+            history(-1);
+          }
+        }, 2000);
+      } else {
+        alert(result.payload.message);
+      }
+    }
   };
+  const notify = () => toast('successful login!');
 
   // console.log(user);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
+
   return (
     <div style={{ height: '100%' }}>
       <div style={{ backgroundColor: backGroudPrimary, padding: '0 20px' }} className="loginInner">
@@ -76,7 +95,7 @@ function Login() {
                         <Form.Item
                           style={{ display: 'flex', color: text }}
                           label={<div style={{ color: text }}>Email</div>}
-                          name="email"
+                          name="emailOrphone"
                           rules={[
                             { required: true, message: 'Please input your Emai!' },
                             { type: 'email', message: 'error! xd: abc123@gmail.com' },
@@ -88,7 +107,7 @@ function Login() {
                       ) : (
                         <Form.Item
                           hasFeedback
-                          name="PhoneNumber"
+                          name="emailOrphone"
                           label={<div style={{ color: text, width: '110px' }}>Phone Number</div>}
                           style={{ display: 'flex', color: text }}
                           rules={[
@@ -111,10 +130,10 @@ function Login() {
                       >
                         <Input.Password />
                       </Form.Item>
-
+                      {/* 
                       <Form.Item name="remember" valuePropName="checked">
                         <Checkbox>Remember me</Checkbox>
-                      </Form.Item>
+                      </Form.Item> */}
 
                       <Form.Item style={{ width: '100%' }} noStyle={true}>
                         <Button
@@ -127,6 +146,7 @@ function Login() {
                           }}
                           type="primary"
                           htmlType="submit"
+                          // loading={Auth.loading}
                         >
                           Submit
                         </Button>
@@ -161,6 +181,7 @@ function Login() {
           <Col xs={0} sm={4} md={4}></Col>
         </Row>
       </div>
+      <ToastContainer />
     </div>
   );
 }

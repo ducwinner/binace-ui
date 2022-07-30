@@ -1,0 +1,60 @@
+.container-new {
+    display: flex;
+    width: 390px;
+    flex-direction: column;
+    overflow: hidden;
+
+    div {
+        margin: 5px 15px;
+    }
+
+    img {   
+            margin-top: -10px;
+            width: 100%;
+            height: 192px;
+    }
+
+
+    .title a {
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-weight: 600;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .text {
+        flex: 1;
+        a  {
+            text-decoration: none;
+            font-size: 1.4rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+    
+        }
+    }
+
+    .web {
+        position: relative;
+        left: 200px;
+        margin: 20px 20px ;
+        display: flex;
+        flex-direction: column;
+        h4 {
+            font-style: italic  ;
+            margin: 0;
+        }
+
+        h5 {
+            margin: 5px 0;
+        }
+    }
+}
+
+.ant-card-body {
+    padding: 0px !important;
+}

@@ -10,31 +10,38 @@ import {
   UserSwitchOutlined,
   ArrowRightOutlined,
   MenuFoldOutlined,
+  LogoutOutlined,
+  BellOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { v4 as uuidv4 } from 'uuid';
 import type { MenuProps } from 'antd';
 import { Select } from 'antd';
 import { useDispatch } from 'react-redux';
 import useWindowSize from '../../../CustomHook/useWindowSize';
+import { useSelector } from 'react-redux';
+import { EncryptionEmail } from '../../../GlobalFunction/EncryptionEmail';
+import { getMe, logout } from '../../../Redux/authSlice';
 const { Option } = Select;
 
 function Header() {
+  const user = useSelector((state: any) => state.user.authUser);
+
   const [theme, setTheme] = useState<MenuTheme>('light');
+  const { text } = useSelector((state: any) => state.theme.colors);
   const [current, setCurrent] = useState('mail');
   const sizeWinDow = useWindowSize();
 
-  // if (sizeWinDow < 820) {
-  //   setTrigger('click');
-  // } else {
-  //   setTrigger('hover');
-  // }
-  console.log(sizeWinDow);
-
   //Redux theme
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
+
+  console.log('user', user);
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) dispatch(getMe({ userId: 1 }));
+  }, []);
 
   const changeTheme = (value: boolean) => {
     if (theme === 'light') {
@@ -56,6 +63,11 @@ function Header() {
 
   const onSearch = (value: string) => {
     console.log('search:', value);
+  };
+
+  const handleLogOutClick = () => {
+    dispatch(logout());
+    window.location.reload();
   };
 
   const Submenus: MenuProps['items'] = [
@@ -280,12 +292,41 @@ function Header() {
       key: uuidv4(),
     },
     {
-      label: <Link to="/login">Log in</Link>,
+      label: user ? (
+        <div className="header-user">
+          <img
+            src={user.image ? user.image : 'https://img.icons8.com/plasticine/100/000000/user.png'}
+            alt="1"
+          />
+        </div>
+      ) : (
+        <Link to="/login">Log in</Link>
+      ),
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
+      children: [
+        user
+          ? {
+              label: (
+                <div style={{ fontSize: '1.6rem', fontWeight: 600, color: text }}>
+                  {EncryptionEmail(user.email)}
+                </div>
+              ),
+              key: uuidv4(),
+              type: 'group',
+              children: [
+                {
+                  label: <div onClick={handleLogOutClick}>Log out</div>,
+                  key: uuidv4(),
+                  icon: <LogoutOutlined />,
+                },
+              ],
+            }
+          : null,
+      ],
     },
     {
-      label: <Link to="/register">Register</Link>,
+      label: user ? <BellOutlined className="bell-icon" /> : <Link to="/register">Register</Link>,
       popupClassName: 'headerSubMenu',
       key: uuidv4(),
     },
