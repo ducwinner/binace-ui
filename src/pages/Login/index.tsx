@@ -28,12 +28,12 @@ function Login() {
   const onFinish = async (values: { email: string; password: string }) => {
     const result = await dispatch(login(values));
     console.log(result);
-    if (result.meta.requestStatus == 'fulfilled') {
+    if (result.meta.requestStatus === 'fulfilled') {
       if (result.payload.token) {
         notify();
         setTimeout(() => {
           console.log(localStorage.getItem('register'));
-          if (localStorage.getItem('register') == 'new') {
+          if (localStorage.getItem('register') === 'new') {
             history('/');
           } else {
             history(-1);

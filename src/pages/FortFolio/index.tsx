@@ -148,10 +148,11 @@ function FortFolio() {
         return total + coin.quantity * price;
       }, 0);
 
+      var totalPercentChange24h;
       if (totalBalance !== 0) {
-        var totalPercentChange24h = (totalChange24h / totalBalance) * 100;
+        totalPercentChange24h = (totalChange24h / totalBalance) * 100;
       } else {
-        var totalPercentChange24h = 0;
+        totalPercentChange24h = 0;
       }
       // total Funds
       const totalFunds = dataUser.reduce((total: number, coin: any) => {
