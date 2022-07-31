@@ -368,10 +368,12 @@ function CoinDetail() {
                   </h4>
                 </div>
                 <Row gutter={[0, 24]}>
-                  {news?.map((item, index) => {
+                  {news?.map((item: any, index) => {
                     return (
                       <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-                        <CardNew urlImg={urlImg[index]} data={item} />
+                        <a href={item.url} target="_blank">
+                          <CardNew urlImg={urlImg[index]} data={item} />
+                        </a>
                       </Col>
                     );
                   })}

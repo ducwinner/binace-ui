@@ -6,6 +6,8 @@ function CardNew({ data, urlImg }: any) {
   const { text, textBlurPrimary, backGroudPrimary } = useSelector(
     (state: any) => state.theme.colors
   );
+
+  console.log(data);
   return (
     <Card
       hoverable
@@ -16,12 +18,12 @@ function CardNew({ data, urlImg }: any) {
             {data.subject}
           </div>
           <div className={'title'}>
-            <a style={{ color: text }} href={data.url} target="_blank" rel="noreferrer">
+            <a style={{ color: text }} href={data.link} target="_blank" rel="noreferrer">
               {data.title}
             </a>
           </div>
           <div className={'text'}>
-            <a href={data.url} target="_blank" rel="noreferrer">
+            <a href={data.link} target="_blank" rel="noreferrer">
               {data.text}
             </a>
           </div>

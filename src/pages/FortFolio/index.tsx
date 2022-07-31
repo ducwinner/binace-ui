@@ -240,7 +240,7 @@ function FortFolio() {
       <div className="fortfolio-inner">
         <Tabs
           style={{ color: textBlurPrimary, fontWeight: 500 }}
-          defaultActiveKey="1"
+          defaultActiveKey="a"
           onChange={onChange}
         >
           <TabPane
@@ -260,7 +260,7 @@ function FortFolio() {
           >
             <Tabs
               style={{ color: textBlurPrimary, fontWeight: 500 }}
-              defaultActiveKey="1"
+              defaultActiveKey="b"
               onChange={onChange}
             >
               <TabPane
@@ -276,7 +276,7 @@ function FortFolio() {
                     &nbsp; My coin
                   </div>
                 }
-                key="1"
+                key="2"
               >
                 <div className="fortfolio-overview">
                   <Row>
@@ -395,15 +395,15 @@ function FortFolio() {
                 </div>
                 <TableCoinFortFolio lstValue={lstValue} lstCoinUser={lstCoinUser} />
               </TabPane>
-              <TabPane tab="My NFT" key="2">
+              <TabPane tab="My NFT" key="3">
                 Content of Tab Pane 2
               </TabPane>
             </Tabs>
           </TabPane>
-          <TabPane tab={<div style={{ fontSize: '1.6rem' }}></div>} key="2">
+          <TabPane tab={<div style={{ fontSize: '1.6rem' }}></div>} key="4">
             Content of Tab Pane 2
           </TabPane>
-          <TabPane tab={<div style={{ fontSize: '1.6rem' }}></div>} key="2">
+          <TabPane tab={<div style={{ fontSize: '1.6rem' }}></div>} key="5">
             Content of Tab Pane 3
           </TabPane>
         </Tabs>
