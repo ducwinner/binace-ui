@@ -371,7 +371,7 @@ function CoinDetail() {
                   {news?.map((item: any, index) => {
                     return (
                       <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-                        <a href={item.url} target="_blank">
+                        <a href={item.url} target="_blank" rel="noreferrer">
                           <CardNew urlImg={urlImg[index]} data={item} />
                         </a>
                       </Col>
