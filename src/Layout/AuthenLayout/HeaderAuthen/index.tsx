@@ -1,27 +1,16 @@
 import '../../../styles/Header.less';
-import { Menu, MenuTheme, Switch } from 'antd';
+import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import { useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { v4 as uuidv4 } from 'uuid';
 import type { MenuProps } from 'antd';
-import { useDispatch } from 'react-redux';
-import { setDarkTheme, setDefaultTheme } from '../../../Redux/themeSlice';
+import { useSelector } from 'react-redux';
 
 function Header() {
   //Redux theme
-  const dispatch = useDispatch();
-
-  const [theme, setTheme] = useState<MenuTheme>('light');
+  const darkMode = useSelector((state: any) => state.theme.darkMode);
   const [current, setCurrent] = useState('mail');
-  const changeTheme = (value: boolean) => {
-    if (theme === 'light') {
-      dispatch(setDarkTheme());
-    } else {
-      dispatch(setDefaultTheme());
-    }
-    setTheme(value ? 'dark' : 'light');
-  };
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
@@ -32,7 +21,7 @@ function Header() {
     <>
       <Menu
         style={{ display: 'flex', justifyContent: 'center' }}
-        theme={theme}
+        theme={darkMode ? 'dark' : 'light'}
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"
@@ -46,14 +35,6 @@ function Header() {
               alt="logo"
             />
           </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Switch
-            checked={theme === 'dark'}
-            onChange={changeTheme}
-            checkedChildren="Dark"
-            unCheckedChildren="Light"
-          />
         </Menu.Item>
       </Menu>
     </>

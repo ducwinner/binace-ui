@@ -38,7 +38,8 @@ function Header() {
   const dispatch: any = useDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem('token')) dispatch(getMe({ userId: 1 }));
+    const userId = localStorage.getItem('userId');
+    if (localStorage.getItem('token')) dispatch(getMe({ userId: userId }));
   }, [dispatch]);
 
   const changeTheme = (value: boolean) => {

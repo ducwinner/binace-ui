@@ -116,12 +116,13 @@ function TableListCoin({ dataCoin, TableType }: TableListCoinInterFace) {
   ];
 
   const data: DataType[] = dataCoin.map((e: any, index: any) => {
+    console.log(e?.price_change_percentage_24h);
     return {
       key: index,
       idCoin: e?.id,
       name: { name: e?.name, symbol: e?.symbol, img: e?.image },
       price: e?.current_price.toLocaleString(),
-      change24: e?.price_change_percentage_24h.toFixed(2),
+      change24: e?.price_change_percentage_24h ? e?.price_change_percentage_24h.toFixed(2) : 0,
       volum24: e?.total_volume.toLocaleString(),
       marketCap: e?.market_cap,
     };

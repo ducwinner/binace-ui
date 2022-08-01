@@ -57,8 +57,6 @@ function CoinDetail() {
   const dispatch = useDispatch<any>();
   const [news, setNews] = useState([]);
 
-  console.log(news);
-
   useEffect(() => {
     const fetchNew = async () => {
       const news: any = await AxiosNews.get('/');

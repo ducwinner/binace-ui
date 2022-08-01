@@ -74,6 +74,8 @@ const userSlice = createSlice({
             .addCase(login.fulfilled,(state: any,action) => {
                 state.loading = false
                 state.token = action.payload.token
+                console.log(action.payload)
+                console.log(action.payload.token)
                 localStorage.setItem('token', action.payload.token)
                 localStorage.setItem('userId', action.payload.userId)
                 localStorage.setItem('roleId', action.payload.roleId)
