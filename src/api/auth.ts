@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 
-const local = "http://localhost:4666/api"
+// const local = "http://localhost:4666/api"
 const dev = "https://cors-anywhere.herokuapp.com/https://duc-backend-nodejs.herokuapp.com/api"
 const authAxios = axios.create({
-  baseURL: local,
+  baseURL: dev,
   headers: { 'content-type': 'application/json',
   'Authorization': 'Bearer ' + localStorage.getItem('token') || ''
 }
