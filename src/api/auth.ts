@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const local = "http://localhost:4555/api"
+// const local = "http://localhost:4555/api"
 const dev = "https://duc-backend-nodejs.herokuapp.com/api"
 const authAxios = axios.create({
   baseURL: dev,
